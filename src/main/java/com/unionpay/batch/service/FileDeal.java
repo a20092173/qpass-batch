@@ -1,6 +1,8 @@
 package com.unionpay.batch.service;
 
 import com.unionpay.batch.base.BankFileFieldMap;
+import com.unionpay.batch.base.QpCupsFileFieldMap;
+import com.unionpay.batch.base.QpCupsN01File;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -69,7 +71,7 @@ public class FileDeal {
             arrs = singleLineResolveWithSep(line,"\\|;");
             log.info("line="+line);
 
-            i=0;
+            i=1;
 
             for (String au : arrs) {
                 //log.info("arrs = "+au);
@@ -97,6 +99,88 @@ public class FileDeal {
         br.close();
         isr.close();
         fis.close();
+
+        return true;
+    }
+
+    /**
+     * 一行一行读取文件，解决读取中文字符时出现乱码
+     *
+     * 流的关闭顺序：先打开的后关，后打开的先关，
+     *       否则有可能出现java.io.IOException: Stream closed异常
+     *   readBankFileAndInsert
+     * @throws IOException
+     */
+    public boolean readQpCupsN01FileAndInsert(String fileNameWithPath, String code) throws IOException {
+        FileInputStream fis = new FileInputStream(fileNameWithPath);
+//        try {
+//            fis = new FileInputStream(fileNameWithPath);
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+        InputStreamReader isr=null;
+        if(code.equals("UTF-8")) {
+            isr=new InputStreamReader(fis, "UTF-8");
+        }
+        else if(code.equals("GBK")){
+            isr = new InputStreamReader(fis, "GBK");
+        }
+        else{
+            //扩展
+        }
+
+        BufferedReader br = new BufferedReader(isr);
+        QpCupsN01File fileMap = new QpCupsN01File();
+        String line = "";
+        String[] arrs = null;
+        int i=0,n=0;
+        while ((line = br.readLine()) != null) {
+            arrs = singleLineResolveWithSep(line,";");
+            log.info("line="+line);
+
+            if(n < fileMap.getHeadLine()) {
+                n++;
+                continue;
+            }
+            if(arrs.length == 2 && arrs[0].equals("END")){
+                break;
+            }
+
+            i=1;
+            for (String au : arrs) {
+
+                //log.info("i = "+i);
+                fileMap.switchField(au,i);
+                i++;
+            }
+            log.info("结束打印"+fileMap.toString());
+
+            //银行文件单行入库
+            if(isQpCupsDeatilInsert(fileMap)){
+                //
+                //
+                continue;
+            }
+            else{
+                br.close();
+                isr.close();
+                fis.close();
+                return false;
+            }
+
+
+
+        }
+        br.close();
+        isr.close();
+        fis.close();
+
+        return true;
+    }
+
+
+    //银联文件表单笔记录插入数据库
+    public boolean isQpCupsDeatilInsert(QpCupsFileFieldMap fileMap){
 
         return true;
     }
