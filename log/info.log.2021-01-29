@@ -1,0 +1,100 @@
+2021-01-28-19-42 [main] [com.unionpay.batch.BatchApplication] [INFO] - Starting BatchApplication using Java 1.8.0_161 on SD-20190914NJNK with PID 10924 (D:\qpass-batch\target\classes started by Administrator in D:\qpass-batch)
+2021-01-28-19-42 [main] [com.unionpay.batch.BatchApplication] [INFO] - No active profile set, falling back to default profiles: default
+2021-01-28-19-42 [main] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [INFO] - Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2021-01-28-19-42 [main] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [INFO] - Finished Spring Data repository scanning in 19 ms. Found 0 JDBC repository interfaces.
+2021-01-28-19-42 [main] [com.zaxxer.hikari.HikariDataSource] [INFO] - HikariPool-1 - Starting...
+2021-01-28-19-42 [main] [com.zaxxer.hikari.util.DriverDataSource] [WARN] - Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2021-01-28-19-42 [main] [com.zaxxer.hikari.HikariDataSource] [INFO] - HikariPool-1 - Start completed.
+2021-01-28-19-42 [main] [org.quartz.impl.StdSchedulerFactory] [INFO] - Using default implementation for ThreadExecutor
+2021-01-28-19-42 [main] [org.quartz.core.SchedulerSignalerImpl] [INFO] - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2021-01-28-19-42 [main] [org.quartz.core.QuartzScheduler] [INFO] - Quartz Scheduler v.2.3.2 created.
+2021-01-28-19-42 [main] [org.quartz.simpl.RAMJobStore] [INFO] - RAMJobStore initialized.
+2021-01-28-19-42 [main] [org.quartz.core.QuartzScheduler] [INFO] - Scheduler meta-data: Quartz Scheduler (v2.3.2) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2021-01-28-19-42 [main] [org.quartz.impl.StdSchedulerFactory] [INFO] - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+2021-01-28-19-42 [main] [org.quartz.impl.StdSchedulerFactory] [INFO] - Quartz scheduler version: 2.3.2
+2021-01-28-19-42 [main] [org.quartz.core.QuartzScheduler] [INFO] - JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@304a9d7b
+2021-01-28-19-42 [main] [org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler] [INFO] - Initializing ExecutorService 'taskScheduler'
+2021-01-28-19-42 [main] [org.springframework.scheduling.quartz.SchedulerFactoryBean] [INFO] - Starting Quartz Scheduler now
+2021-01-28-19-42 [main] [org.quartz.core.QuartzScheduler] [INFO] - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+2021-01-28-19-42 [quartzScheduler_Worker-1] [com.unionpay.batch.jobs.BatchRecnclProcessCommonJob] [INFO] - start.................
+2021-01-28-19-42 [quartzScheduler_Worker-1] [com.unionpay.batch.jobs.BatchRecnclProcessCommon] [INFO] - 执行通用对账任务20210127
+2021-01-28-19-42 [main] [com.unionpay.batch.BatchApplication] [INFO] - Started BatchApplication in 4.015 seconds (JVM running for 4.879)
+2021-01-28-19-42 [quartzScheduler_Worker-2] [com.unionpay.batch.jobs.BatchRecnclProcessCommonJob] [INFO] - start.................
+2021-01-28-19-42 [quartzScheduler_Worker-2] [com.unionpay.batch.jobs.BatchRecnclProcessCommon] [INFO] - 执行通用对账任务20210127
+2021-01-28-19-42 [quartzScheduler_Worker-3] [com.unionpay.batch.jobs.BatchRecnclProcessCommonJob] [INFO] - start.................
+2021-01-28-19-42 [quartzScheduler_Worker-3] [com.unionpay.batch.jobs.BatchRecnclProcessCommon] [INFO] - 执行通用对账任务20210127
+2021-01-29-10-56 [main] [com.unionpay.batch.BatchApplication] [INFO] - Starting BatchApplication using Java 1.8.0_161 on SD-20190914NJNK with PID 6040 (D:\qpass-batch\target\classes started by Administrator in D:\qpass-batch)
+2021-01-29-10-56 [main] [com.unionpay.batch.BatchApplication] [INFO] - No active profile set, falling back to default profiles: default
+2021-01-29-10-56 [main] [org.mybatis.spring.mapper.ClassPathMapperScanner] [WARN] - No MyBatis mapper was found in '[com.unionpay.batch]' package. Please check your configuration.
+2021-01-29-10-56 [main] [org.quartz.impl.StdSchedulerFactory] [INFO] - Using default implementation for ThreadExecutor
+2021-01-29-10-56 [main] [org.quartz.core.SchedulerSignalerImpl] [INFO] - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2021-01-29-10-56 [main] [org.quartz.core.QuartzScheduler] [INFO] - Quartz Scheduler v.2.3.2 created.
+2021-01-29-10-56 [main] [org.quartz.simpl.RAMJobStore] [INFO] - RAMJobStore initialized.
+2021-01-29-10-56 [main] [org.quartz.core.QuartzScheduler] [INFO] - Scheduler meta-data: Quartz Scheduler (v2.3.2) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2021-01-29-10-56 [main] [org.quartz.impl.StdSchedulerFactory] [INFO] - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+2021-01-29-10-56 [main] [org.quartz.impl.StdSchedulerFactory] [INFO] - Quartz scheduler version: 2.3.2
+2021-01-29-10-56 [main] [org.quartz.core.QuartzScheduler] [INFO] - JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@60bdf15d
+2021-01-29-10-56 [main] [org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler] [INFO] - Initializing ExecutorService 'taskScheduler'
+2021-01-29-10-56 [main] [org.springframework.scheduling.quartz.SchedulerFactoryBean] [INFO] - Starting Quartz Scheduler now
+2021-01-29-10-56 [main] [org.quartz.core.QuartzScheduler] [INFO] - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+2021-01-29-10-56 [main] [com.unionpay.batch.BatchApplication] [INFO] - Started BatchApplication in 3.454 seconds (JVM running for 4.471)
+2021-01-29-10-56 [quartzScheduler_Worker-1] [com.unionpay.batch.jobs.BatchRecnclProcessCommonJob] [INFO] - start.................
+2021-01-29-10-56 [quartzScheduler_Worker-1] [com.unionpay.batch.jobs.BatchRecnclProcessCommon] [INFO] - 执行通用对账任务20210127
+2021-01-29-10-56 [quartzScheduler_Worker-2] [com.unionpay.batch.jobs.BatchRecnclProcessCommonJob] [INFO] - start.................
+2021-01-29-10-56 [quartzScheduler_Worker-2] [com.unionpay.batch.jobs.BatchRecnclProcessCommon] [INFO] - 执行通用对账任务20210127
+2021-01-29-10-56 [quartzScheduler_Worker-3] [com.unionpay.batch.jobs.BatchRecnclProcessCommonJob] [INFO] - start.................
+2021-01-29-10-56 [quartzScheduler_Worker-3] [com.unionpay.batch.jobs.BatchRecnclProcessCommon] [INFO] - 执行通用对账任务20210127
+2021-01-29-10-56 [quartzScheduler_Worker-4] [com.unionpay.batch.jobs.BatchRecnclProcessCommonJob] [INFO] - start.................
+2021-01-29-10-56 [quartzScheduler_Worker-4] [com.unionpay.batch.jobs.BatchRecnclProcessCommon] [INFO] - 执行通用对账任务20210127
+2021-01-29-11-19 [main] [com.unionpay.batch.BatchApplication] [INFO] - Starting BatchApplication using Java 1.8.0_161 on SD-20190914NJNK with PID 6552 (D:\qpass-batch\target\classes started by Administrator in D:\qpass-batch)
+2021-01-29-11-19 [main] [com.unionpay.batch.BatchApplication] [INFO] - No active profile set, falling back to default profiles: default
+2021-01-29-11-19 [main] [org.mybatis.spring.mapper.ClassPathMapperScanner] [WARN] - No MyBatis mapper was found in '[com.unionpay.batch]' package. Please check your configuration.
+2021-01-29-11-19 [main] [org.quartz.impl.StdSchedulerFactory] [INFO] - Using default implementation for ThreadExecutor
+2021-01-29-11-19 [main] [org.quartz.core.SchedulerSignalerImpl] [INFO] - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2021-01-29-11-19 [main] [org.quartz.core.QuartzScheduler] [INFO] - Quartz Scheduler v.2.3.2 created.
+2021-01-29-11-19 [main] [org.quartz.simpl.RAMJobStore] [INFO] - RAMJobStore initialized.
+2021-01-29-11-19 [main] [org.quartz.core.QuartzScheduler] [INFO] - Scheduler meta-data: Quartz Scheduler (v2.3.2) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2021-01-29-11-19 [main] [org.quartz.impl.StdSchedulerFactory] [INFO] - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+2021-01-29-11-19 [main] [org.quartz.impl.StdSchedulerFactory] [INFO] - Quartz scheduler version: 2.3.2
+2021-01-29-11-19 [main] [org.quartz.core.QuartzScheduler] [INFO] - JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@5f3b9c57
+2021-01-29-11-19 [main] [org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler] [INFO] - Initializing ExecutorService 'taskScheduler'
+2021-01-29-11-19 [main] [org.springframework.scheduling.quartz.SchedulerFactoryBean] [INFO] - Starting Quartz Scheduler now
+2021-01-29-11-19 [main] [org.quartz.core.QuartzScheduler] [INFO] - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+2021-01-29-11-19 [main] [com.unionpay.batch.BatchApplication] [INFO] - Started BatchApplication in 5.079 seconds (JVM running for 7.339)
+2021-01-29-11-19 [quartzScheduler_Worker-1] [com.unionpay.batch.jobs.BatchRecnclProcessCommonJob] [INFO] - start.................
+2021-01-29-11-19 [quartzScheduler_Worker-1] [com.unionpay.batch.jobs.BatchRecnclProcessCommon] [INFO] - 执行通用对账任务20210127
+2021-01-29-11-19 [quartzScheduler_Worker-2] [com.unionpay.batch.jobs.BatchRecnclProcessCommonJob] [INFO] - start.................
+2021-01-29-11-19 [quartzScheduler_Worker-2] [com.unionpay.batch.jobs.BatchRecnclProcessCommon] [INFO] - 执行通用对账任务20210127
+2021-01-29-11-19 [quartzScheduler_Worker-3] [com.unionpay.batch.jobs.BatchRecnclProcessCommonJob] [INFO] - start.................
+2021-01-29-11-19 [quartzScheduler_Worker-3] [com.unionpay.batch.jobs.BatchRecnclProcessCommon] [INFO] - 执行通用对账任务20210127
+2021-01-29-11-19 [quartzScheduler_Worker-4] [com.unionpay.batch.jobs.BatchRecnclProcessCommonJob] [INFO] - start.................
+2021-01-29-11-19 [quartzScheduler_Worker-4] [com.unionpay.batch.jobs.BatchRecnclProcessCommon] [INFO] - 执行通用对账任务20210127
+2021-01-29-11-19 [quartzScheduler_Worker-5] [com.unionpay.batch.jobs.BatchRecnclProcessCommonJob] [INFO] - start.................
+2021-01-29-11-19 [quartzScheduler_Worker-5] [com.unionpay.batch.jobs.BatchRecnclProcessCommon] [INFO] - 执行通用对账任务20210127
+2021-01-29-11-19 [quartzScheduler_Worker-6] [com.unionpay.batch.jobs.BatchRecnclProcessCommonJob] [INFO] - start.................
+2021-01-29-11-19 [quartzScheduler_Worker-6] [com.unionpay.batch.jobs.BatchRecnclProcessCommon] [INFO] - 执行通用对账任务20210127
+2021-01-29-11-20 [quartzScheduler_Worker-7] [com.unionpay.batch.jobs.BatchRecnclProcessCommonJob] [INFO] - start.................
+2021-01-29-11-20 [quartzScheduler_Worker-7] [com.unionpay.batch.jobs.BatchRecnclProcessCommon] [INFO] - 执行通用对账任务20210127
+2021-01-29-11-20 [quartzScheduler_Worker-8] [com.unionpay.batch.jobs.BatchRecnclProcessCommonJob] [INFO] - start.................
+2021-01-29-11-20 [quartzScheduler_Worker-8] [com.unionpay.batch.jobs.BatchRecnclProcessCommon] [INFO] - 执行通用对账任务20210127
