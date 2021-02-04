@@ -4,6 +4,7 @@ package com.unionpay.batch.jobs;
 * */
 
 import com.unionpay.batch.service.imp.TblQpbatSequenceServiceImpl;
+import com.unionpay.batch.service.imp.TblQpbatUpComtrxServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
@@ -11,6 +12,9 @@ import org.quartz.JobExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.stereotype.Component;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 @Slf4j
@@ -20,14 +24,36 @@ public class BatchRecnclProcessCommonJob extends QuartzJobBean {
     @Autowired
     TblQpbatSequenceServiceImpl tblQpbatSequenceService;
 
+    @Autowired
+    TblQpbatUpComtrxServiceImpl tblQpbatUpComtrxService;
 
     @Override
     protected void executeInternal(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         log.info("start.................");
         //生成个性化流水号
-        String taskId = tblQpbatSequenceService.makeBatchTaskId(jobExecutionContext.getMergedJobDataMap());
-        log.info("--------taskID:"+taskId+ "----------");
+        //String taskId = tblQpbatSequenceService.makeBatchTaskId(jobExecutionContext.getMergedJobDataMap());
+        //log.info("--------taskID:"+taskId+ "----------");
+
+        //银联清算流水入库
+        Map<String, String> dataMap = new HashMap<String, String>();
+        dataMap.put("UpTableName", "tbl_qpbat_up_comtrx01");
+        dataMap.put("BussCd", "TESTBANK");
+        dataMap.put("SndrInsIdCd","W0ACQ002");
+        dataMap.put("SettleDt","20200610");
+        dataMap.put("TransSeq","0610C04myZS1c3IB");
+        dataMap.put("BankTransSeq","00000000001");
+        dataMap.put("BizFuncCd","100003");
+        dataMap.put("BtpNo","10000001");
+        dataMap.put("TransAt","156000000010000");
+        dataMap.put("TransDt","20200610");
+        dataMap.put("TransTm","164840");
+        dataMap.put("TransTp","1002");
+        dataMap.put("SettleNum","13");
+        dataMap.put("IssAcq","0");
+        tblQpbatUpComtrxService.insertOneRecordIntoUpComtrx(dataMap);
         log.info("end...................");
+
+
         //SignUser user1;
         //user1 = signUserService.getSignUserByEmpId("A000001");
         //log.info("result = " + user1.toString());
