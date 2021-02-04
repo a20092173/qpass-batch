@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.unionpay.batch.dao.TblQpbatSequenceMapper" >
+  <resultMap id="BaseResultMap" type="com.unionpay.batch.entity.TblQpbatSequence" >
+    <result column="SYS_CODE" property="sysCode" jdbcType="VARCHAR" />
+    <result column="SEQ_ID" property="seqId" jdbcType="VARCHAR" />
+    <result column="IN_CRE_STEP" property="inCreStep" jdbcType="INTEGER" />
+    <result column="MAX_ID" property="maxId" jdbcType="VARCHAR" />
+    <result column="REC_UPD_TS" property="recUpdTs" jdbcType="TIMESTAMP" />
+    <result column="REC_CRT_TS" property="recCrtTs" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    SYS_CODE, SEQ_ID, IN_CRE_STEP, MAX_ID, REC_UPD_TS, REC_CRT_TS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.batch.entity.TblQpbatSequenceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_qpbat_sequence
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <!--自定义-->
+  <select id="findBatSequenceBySysCd" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from tbl_qpbat_sequence
+    where sys_code = #{sysCd,jdbcType=VARCHAR} limit 1 for update
+  </select>
+  <!--自定义-->
+  <delete id="deleteByExample" parameterType="com.unionpay.batch.entity.TblQpbatSequenceExample" >
+    delete from tbl_qpbat_sequence
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.unionpay.batch.entity.TblQpbatSequence" >
+    insert into tbl_qpbat_sequence (SYS_CODE, SEQ_ID, IN_CRE_STEP,
+      MAX_ID, REC_UPD_TS, REC_CRT_TS
+      )
+    values (#{sysCode,jdbcType=VARCHAR}, #{seqId,jdbcType=VARCHAR}, #{inCreStep,jdbcType=INTEGER},
+      #{maxId,jdbcType=VARCHAR}, #{recUpdTs,jdbcType=TIMESTAMP}, #{recCrtTs,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.unionpay.batch.entity.TblQpbatSequence" >
+    insert into tbl_qpbat_sequence
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sysCode != null" >
+        SYS_CODE,
+      </if>
+      <if test="seqId != null" >
+        SEQ_ID,
+      </if>
+      <if test="inCreStep != null" >
+        IN_CRE_STEP,
+      </if>
+      <if test="maxId != null" >
+        MAX_ID,
+      </if>
+      <if test="recUpdTs != null" >
+        REC_UPD_TS,
+      </if>
+      <if test="recCrtTs != null" >
+        REC_CRT_TS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sysCode != null" >
+        #{sysCode,jdbcType=VARCHAR},
+      </if>
+      <if test="seqId != null" >
+        #{seqId,jdbcType=VARCHAR},
+      </if>
+      <if test="inCreStep != null" >
+        #{inCreStep,jdbcType=INTEGER},
+      </if>
+      <if test="maxId != null" >
+        #{maxId,jdbcType=VARCHAR},
+      </if>
+      <if test="recUpdTs != null" >
+        #{recUpdTs,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recCrtTs != null" >
+        #{recCrtTs,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.unionpay.batch.entity.TblQpbatSequenceExample" resultType="java.lang.Integer" >
+    select count(*) from tbl_qpbat_sequence
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbl_qpbat_sequence
+    <set >
+      <if test="record.sysCode != null" >
+        SYS_CODE = #{record.sysCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.seqId != null" >
+        SEQ_ID = #{record.seqId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inCreStep != null" >
+        IN_CRE_STEP = #{record.inCreStep,jdbcType=INTEGER},
+      </if>
+      <if test="record.maxId != null" >
+        MAX_ID = #{record.maxId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recUpdTs != null" >
+        REC_UPD_TS = #{record.recUpdTs,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.recCrtTs != null" >
+        REC_CRT_TS = #{record.recCrtTs,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <!--modify-->
+  <update id="updateByExample" parameterType="map" >
+    update tbl_qpbat_sequence
+    set SEQ_ID = #{record.seqId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <!--modify-->
+</mapper>
