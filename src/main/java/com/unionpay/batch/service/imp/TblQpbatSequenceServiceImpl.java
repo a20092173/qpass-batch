@@ -72,7 +72,7 @@ public class TblQpbatSequenceServiceImpl implements TblQpbatSequenceService {
             dataMap.put("NEW_SEQ_ID", seqIdStr);
             int iResult = 0;
             iResult = updBatSequenceBySysCd(dataMap);
-            if(0 > iResult){
+            if(0 >= iResult){
                 log.error("【更新batsequence】更新库表流水号失败");
                 return BAT_FAILURE;
             }

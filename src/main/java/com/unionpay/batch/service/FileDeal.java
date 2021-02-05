@@ -1,29 +1,34 @@
 package com.unionpay.batch.service;
 
 import com.unionpay.batch.base.BankFileFieldMap;
-import com.unionpay.batch.base.QpCupsFileFieldMap;
-import com.unionpay.batch.base.QpCupsN01File;
+import com.unionpay.batch.dao.TblQpbatUpComtrxMapper;
+import com.unionpay.batch.entity.TblQpbatUpComtrx;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.*;
 
 @Slf4j
 @Service
+@Transactional
 public class FileDeal {
 
 //    String path = "D:\\test.txt";
 //    String line = "123|hhsad|我是谁am|7岁hh";
+    @Autowired
+    TblQpbatUpComtrxMapper tblQpbatUpComtrxDao;
 
     public String[] singleLineResolveWithSep(String line, String sep) {
         //String tempAuthorStr = "张三|李四|拿破仑|王五|曹操";
         //空值也保留
         String[] str = line.split(sep,-1);
 
-//        int i=0;
-//        for(i=0;i<str.length;i++){
-//            log.info("str= "+str[i]);
-//        }
+        int i=0;
+        for(i=0;i<str.length;i++){
+            log.info("str= "+str[i]);
+        }
 
         return str;
 //        String tempAuthorStr = "张三;李四,拿破仑，王五；曹操";
@@ -72,7 +77,6 @@ public class FileDeal {
             log.info("line="+line);
 
             i=1;
-
             for (String au : arrs) {
                 //log.info("arrs = "+au);
                 fileMap.switchField(au,i);
@@ -130,13 +134,21 @@ public class FileDeal {
         }
 
         BufferedReader br = new BufferedReader(isr);
-        QpCupsN01File fileMap = new QpCupsN01File();
+
+        //QpCupsN01File fileMap = new QpCupsN01File();
+        //银联清算文件使用com/unionpay/batch/entity/TblQpbatUpComtrx类对接数据库实体
+        TblQpbatUpComtrx fileMap = new TblQpbatUpComtrx();
+        fileMap.setHeadEndFlag("3");
+        fileMap.setHeadLine(2);
+        fileMap.setEndLine(1);
+        fileMap.setOperIn("i");
+        fileMap.setRecUpdUsrId("user");
         String line = "";
         String[] arrs = null;
         int i=0,n=0;
         while ((line = br.readLine()) != null) {
-            arrs = singleLineResolveWithSep(line,";");
             log.info("line="+line);
+            arrs = singleLineResolveWithSep(line,";");
 
             if(n < fileMap.getHeadLine()) {
                 n++;
@@ -146,18 +158,22 @@ public class FileDeal {
                 break;
             }
 
+
             i=1;
             for (String au : arrs) {
-
+                //log.info("au["+ i +"]:" + au);
                 //log.info("i = "+i);
                 fileMap.switchField(au,i);
                 i++;
             }
-            log.info("结束打印"+fileMap.toString());
-
             //银行文件单行入库
-            if(isQpCupsDeatilInsert(fileMap)){
+
+            fileMap.setBussCd("TESTBANK");
+            fileMap.setIssAcq("0");
+            log.info("结束打印"+fileMap.toString());
+            if(isQpCupsDeatilInsert("tbl_qpbat_up_comtrx01",fileMap)){
                 //
+                log.info("【cups流水入库】记录流水号：" +fileMap.getTransSeq()+ "入库成功");
                 //
                 continue;
             }
@@ -180,8 +196,18 @@ public class FileDeal {
 
 
     //银联文件表单笔记录插入数据库
-    public boolean isQpCupsDeatilInsert(QpCupsFileFieldMap fileMap){
-
+    public boolean isQpCupsDeatilInsert(String tableName, TblQpbatUpComtrx upComtrx){
+        int iResult = 0;
+        try{
+            iResult = tblQpbatUpComtrxDao.insert(tableName,upComtrx);
+            if(0 >= iResult){
+                log.error("【cups流水入库】记录流水号:"+ upComtrx.getTransSeq() +"入库失败"+iResult);
+                return false;
+            }
+        }catch (Exception e){
+            log.error("【cups流水入库】记录流水号：" +upComtrx.getTransSeq()+ "入库发生异常",e);
+            return false;
+        }
         return true;
     }
 

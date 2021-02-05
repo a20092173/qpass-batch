@@ -1,0 +1,610 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.unionpay.batch.dao.TblQpbatUpComtrxMapper">
+  <resultMap id="BaseResultMap" type="com.unionpay.batch.entity.TblQpbatUpComtrx">
+    <id column="SNDR_INS_ID_CD" jdbcType="VARCHAR" property="sndrInsIdCd" />
+    <id column="SETTLE_DT" jdbcType="VARCHAR" property="settleDt" />
+    <id column="TRANS_SEQ" jdbcType="VARCHAR" property="transSeq" />
+    <result column="BUSS_CD" jdbcType="VARCHAR" property="bussCd" />
+    <result column="TRANS_TP" jdbcType="VARCHAR" property="transTp" />
+    <result column="BIZ_FUNC_CD" jdbcType="VARCHAR" property="bizFuncCd" />
+    <result column="TRANS_AT" jdbcType="VARCHAR" property="transAt" />
+    <result column="TRANS_DT" jdbcType="VARCHAR" property="transDt" />
+    <result column="TRANS_TM" jdbcType="VARCHAR" property="transTm" />
+    <result column="BANK_TRANS_SEQ" jdbcType="VARCHAR" property="bankTransSeq" />
+    <result column="ORG_TRANS_SEQ" jdbcType="VARCHAR" property="orgTransSeq" />
+    <result column="ORG_TRANS_AT" jdbcType="VARCHAR" property="orgTransAt" />
+    <result column="SGN_NO" jdbcType="VARCHAR" property="sgnNo" />
+    <result column="PYER_ACCT_INS_CD" jdbcType="VARCHAR" property="pyerAcctInsCd" />
+    <result column="PYER_ACCT_TP" jdbcType="VARCHAR" property="pyerAcctTp" />
+    <result column="PYER_ACCT_NO" jdbcType="VARCHAR" property="pyerAcctNo" />
+    <result column="PYEE_ACCT_INS_CD" jdbcType="VARCHAR" property="pyeeAcctInsCd" />
+    <result column="PYEE_ACCT_TP" jdbcType="VARCHAR" property="pyeeAcctTp" />
+    <result column="PYEE_ACCT_NO" jdbcType="VARCHAR" property="pyeeAcctNo" />
+    <result column="PRV_BANK_ID_CD" jdbcType="VARCHAR" property="prvBankIdCd" />
+    <result column="PRV_BANK_ACCT_NO" jdbcType="VARCHAR" property="prvBankAcctNo" />
+    <result column="SETTLE_NUM" jdbcType="VARCHAR" property="settleNum" />
+    <result column="ISS_ACQ" jdbcType="CHAR" property="issAcq" />
+    <result column="BTP_NO" jdbcType="VARCHAR" property="btpNo" />
+    <result column="RSV_FLD" jdbcType="VARCHAR" property="rsvFld" />
+    <result column="RECNCL_ST" jdbcType="CHAR" property="recnclSt" />
+    <result column="RECNCL_DESC" jdbcType="VARCHAR" property="recnclDesc" />
+    <result column="OPER_IN" jdbcType="CHAR" property="operIn" />
+    <result column="REC_UPD_USR_ID" jdbcType="VARCHAR" property="recUpdUsrId" />
+    <result column="REC_UPD_TS" jdbcType="TIMESTAMP" property="recUpdTs" />
+    <result column="REC_CRT_TS" jdbcType="TIMESTAMP" property="recCrtTs" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    SNDR_INS_ID_CD, SETTLE_DT, TRANS_SEQ, BUSS_CD, TRANS_TP, BIZ_FUNC_CD, TRANS_AT, TRANS_DT,
+    TRANS_TM, BANK_TRANS_SEQ, ORG_TRANS_SEQ, ORG_TRANS_AT, SGN_NO, PYER_ACCT_INS_CD,
+    PYER_ACCT_TP, PYER_ACCT_NO, PYEE_ACCT_INS_CD, PYEE_ACCT_TP, PYEE_ACCT_NO, PRV_BANK_ID_CD,
+    PRV_BANK_ACCT_NO, SETTLE_NUM, ISS_ACQ, BTP_NO, RSV_FLD, RECNCL_ST, RECNCL_DESC, OPER_IN,
+    REC_UPD_USR_ID, REC_UPD_TS, REC_CRT_TS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="map">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ${tableName}
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="example.orderByClause != null">
+      order by ${example.orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from ${tableName}
+    where BUSS_CD = ##{record.bussCd,jdbcType=VARCHAR}
+      and SNDR_INS_ID_CD = #{record.sndrInsIdCd,jdbcType=VARCHAR}
+      and SETTLE_DT = #{record.settleDt,jdbcType=VARCHAR}
+      and TRANS_SEQ = #{record.transSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from ${tableName}
+    where BUSS_CD = #{record.bussCd,jdbcType=VARCHAR}
+      and SNDR_INS_ID_CD = #{record.sndrInsIdCd,jdbcType=VARCHAR}
+      and SETTLE_DT = #{record.settleDt,jdbcType=VARCHAR}
+      and TRANS_SEQ = #{record.transSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="map">
+    delete from ${tableName}
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="map">
+    insert into ${tableName} (SNDR_INS_ID_CD, SETTLE_DT, TRANS_SEQ,
+      BUSS_CD, TRANS_TP, BIZ_FUNC_CD,
+      TRANS_AT, TRANS_DT, TRANS_TM,
+      BANK_TRANS_SEQ, ORG_TRANS_SEQ, ORG_TRANS_AT,
+      SGN_NO, PYER_ACCT_INS_CD, PYER_ACCT_TP,
+      PYER_ACCT_NO, PYEE_ACCT_INS_CD, PYEE_ACCT_TP,
+      PYEE_ACCT_NO, PRV_BANK_ID_CD, PRV_BANK_ACCT_NO,
+      SETTLE_NUM, ISS_ACQ, BTP_NO,
+      RSV_FLD, RECNCL_ST, RECNCL_DESC,
+      OPER_IN, REC_UPD_USR_ID, REC_UPD_TS,
+      REC_CRT_TS)
+    values (#{record.sndrInsIdCd,jdbcType=VARCHAR}, #{record.settleDt,jdbcType=VARCHAR}, #{record.transSeq,jdbcType=VARCHAR},
+      #{record.bussCd,jdbcType=VARCHAR}, #{record.transTp,jdbcType=VARCHAR}, #{record.bizFuncCd,jdbcType=VARCHAR},
+      #{record.transAt,jdbcType=VARCHAR}, #{record.transDt,jdbcType=VARCHAR}, #{record.transTm,jdbcType=VARCHAR},
+      #{record.bankTransSeq,jdbcType=VARCHAR}, #{record.orgTransSeq,jdbcType=VARCHAR}, #{record.orgTransAt,jdbcType=VARCHAR},
+      #{record.sgnNo,jdbcType=VARCHAR}, #{record.pyerAcctInsCd,jdbcType=VARCHAR}, #{record.pyerAcctTp,jdbcType=VARCHAR},
+      #{record.pyerAcctNo,jdbcType=VARCHAR}, #{record.pyeeAcctInsCd,jdbcType=VARCHAR}, #{record.pyeeAcctTp,jdbcType=VARCHAR},
+      #{record.pyeeAcctNo,jdbcType=VARCHAR}, #{record.prvBankIdCd,jdbcType=VARCHAR}, #{record.prvBankAcctNo,jdbcType=VARCHAR},
+      #{record.settleNum,jdbcType=VARCHAR}, #{record.issAcq,jdbcType=CHAR}, #{record.btpNo,jdbcType=VARCHAR},
+      #{record.rsvFld,jdbcType=VARCHAR}, #{record.recnclSt,jdbcType=CHAR}, #{record.recnclDesc,jdbcType=VARCHAR},
+      #{record.operIn,jdbcType=CHAR}, #{record.recUpdUsrId,jdbcType=VARCHAR}, current_timestamp,
+      current_timestamp)
+  </insert>
+  <insert id="insertSelective" parameterType="map">
+    insert into ${upTableName}
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="record.sndrInsIdCd != null">
+        SNDR_INS_ID_CD,
+      </if>
+      <if test="record.settleDt != null">
+        SETTLE_DT,
+      </if>
+      <if test="record.transSeq != null">
+        TRANS_SEQ,
+      </if>
+      <if test="record.bussCd != null">
+        BUSS_CD,
+      </if>
+      <if test="record.transTp != null">
+        TRANS_TP,
+      </if>
+      <if test="record.bizFuncCd != null">
+        BIZ_FUNC_CD,
+      </if>
+      <if test="record.transAt != null">
+        TRANS_AT,
+      </if>
+      <if test="record.transDt != null">
+        TRANS_DT,
+      </if>
+      <if test="record.transTm != null">
+        TRANS_TM,
+      </if>
+      <if test="record.bankTransSeq != null">
+        BANK_TRANS_SEQ,
+      </if>
+      <if test="record.orgTransSeq != null">
+        ORG_TRANS_SEQ,
+      </if>
+      <if test="record.orgTransAt != null">
+        ORG_TRANS_AT,
+      </if>
+      <if test="record.sgnNo != null">
+        SGN_NO,
+      </if>
+      <if test="record.pyerAcctInsCd != null">
+        PYER_ACCT_INS_CD,
+      </if>
+      <if test="record.pyerAcctTp != null">
+        PYER_ACCT_TP,
+      </if>
+      <if test="record.pyerAcctNo != null">
+        PYER_ACCT_NO,
+      </if>
+      <if test="record.pyeeAcctInsCd != null">
+        PYEE_ACCT_INS_CD,
+      </if>
+      <if test="record.pyeeAcctTp != null">
+        PYEE_ACCT_TP,
+      </if>
+      <if test="record.pyeeAcctNo != null">
+        PYEE_ACCT_NO,
+      </if>
+      <if test="record.prvBankIdCd != null">
+        PRV_BANK_ID_CD,
+      </if>
+      <if test="record.prvBankAcctNo != null">
+        PRV_BANK_ACCT_NO,
+      </if>
+      <if test="record.settleNum != null">
+        SETTLE_NUM,
+      </if>
+      <if test="record.issAcq != null">
+        ISS_ACQ,
+      </if>
+      <if test="record.btpNo != null">
+        BTP_NO,
+      </if>
+      <if test="record.rsvFld != null">
+        RSV_FLD,
+      </if>
+      <if test="record.recnclSt != null">
+        RECNCL_ST,
+      </if>
+      <if test="record.recnclDesc != null">
+        RECNCL_DESC,
+      </if>
+      <if test="record.operIn != null">
+        OPER_IN,
+      </if>
+      <if test="record.recUpdUsrId != null">
+        REC_UPD_USR_ID,
+      </if>
+      <if test="record.recUpdTs != null">
+        REC_UPD_TS,
+      </if>
+      <if test="record.recCrtTs != null">
+        REC_CRT_TS
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="record.sndrInsIdCd != null">
+        #{record.sndrInsIdCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.settleDt != null">
+        #{record.settleDt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transSeq != null">
+        #{record.transSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bussCd != null">
+        #{record.bussCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transTp != null">
+        #{record.transTp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bizFuncCd != null">
+        #{record.bizFuncCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transAt != null">
+        #{record.transAt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transDt != null">
+        #{record.transDt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transTm != null">
+        #{record.transTm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankTransSeq != null">
+        #{record.bankTransSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orgTransSeq != null">
+        #{record.orgTransSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orgTransAt != null">
+        #{record.orgTransAt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sgnNo != null">
+        #{record.sgnNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pyerAcctInsCd != null">
+        #{record.pyerAcctInsCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pyerAcctTp != null">
+        #{record.pyerAcctTp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pyerAcctNo != null">
+        #{record.pyerAcctNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pyeeAcctInsCd != null">
+        #{record.pyeeAcctInsCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pyeeAcctTp != null">
+        #{record.pyeeAcctTp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pyeeAcctNo != null">
+        #{record.pyeeAcctNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prvBankIdCd != null">
+        #{record.prvBankIdCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prvBankAcctNo != null">
+        #{record.prvBankAcctNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.settleNum != null">
+        #{record.settleNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.issAcq != null">
+        #{record.issAcq,jdbcType=CHAR},
+      </if>
+      <if test="record.btpNo != null">
+        #{record.btpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rsvFld != null">
+        #{record.rsvFld,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recnclSt != null">
+        #{record.recnclSt,jdbcType=CHAR},
+      </if>
+      <if test="record.recnclDesc != null">
+        #{record.recnclDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operIn != null">
+        #{record.operIn,jdbcType=CHAR},
+      </if>
+      <if test="record.recUpdUsrId != null">
+        #{record.recUpdUsrId,jdbcType=VARCHAR}
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" resultType="java.lang.Integer">
+    select count(*) from ${tableName}
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ${tableName}
+    <set>
+      <if test="record.sndrInsIdCd != null">
+        SNDR_INS_ID_CD = #{record.sndrInsIdCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.settleDt != null">
+        SETTLE_DT = #{record.settleDt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transSeq != null">
+        TRANS_SEQ = #{record.transSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bussCd != null">
+        BUSS_CD = #{record.bussCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transTp != null">
+        TRANS_TP = #{record.transTp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bizFuncCd != null">
+        BIZ_FUNC_CD = #{record.bizFuncCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transAt != null">
+        TRANS_AT = #{record.transAt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transDt != null">
+        TRANS_DT = #{record.transDt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transTm != null">
+        TRANS_TM = #{record.transTm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankTransSeq != null">
+        BANK_TRANS_SEQ = #{record.bankTransSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orgTransSeq != null">
+        ORG_TRANS_SEQ = #{record.orgTransSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orgTransAt != null">
+        ORG_TRANS_AT = #{record.orgTransAt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sgnNo != null">
+        SGN_NO = #{record.sgnNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pyerAcctInsCd != null">
+        PYER_ACCT_INS_CD = #{record.pyerAcctInsCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pyerAcctTp != null">
+        PYER_ACCT_TP = #{record.pyerAcctTp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pyerAcctNo != null">
+        PYER_ACCT_NO = #{record.pyerAcctNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pyeeAcctInsCd != null">
+        PYEE_ACCT_INS_CD = #{record.pyeeAcctInsCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pyeeAcctTp != null">
+        PYEE_ACCT_TP = #{record.pyeeAcctTp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pyeeAcctNo != null">
+        PYEE_ACCT_NO = #{record.pyeeAcctNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prvBankIdCd != null">
+        PRV_BANK_ID_CD = #{record.prvBankIdCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prvBankAcctNo != null">
+        PRV_BANK_ACCT_NO = #{record.prvBankAcctNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.settleNum != null">
+        SETTLE_NUM = #{record.settleNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.issAcq != null">
+        ISS_ACQ = #{record.issAcq,jdbcType=CHAR},
+      </if>
+      <if test="record.btpNo != null">
+        BTP_NO = #{record.btpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rsvFld != null">
+        RSV_FLD = #{record.rsvFld,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recnclSt != null">
+        RECNCL_ST = #{record.recnclSt,jdbcType=CHAR},
+      </if>
+      <if test="record.recnclDesc != null">
+        RECNCL_DESC = #{record.recnclDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operIn != null">
+        OPER_IN = #{record.operIn,jdbcType=CHAR},
+      </if>
+      <if test="record.recUpdUsrId != null">
+        REC_UPD_USR_ID = #{record.recUpdUsrId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recUpdTs != null">
+        REC_UPD_TS = #{record.recUpdTs,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.recCrtTs != null">
+        REC_CRT_TS = #{record.recCrtTs,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ${tableName}
+    set SNDR_INS_ID_CD = #{record.sndrInsIdCd,jdbcType=VARCHAR},
+      SETTLE_DT = #{record.settleDt,jdbcType=VARCHAR},
+      TRANS_SEQ = #{record.transSeq,jdbcType=VARCHAR},
+      BUSS_CD = #{record.bussCd,jdbcType=VARCHAR},
+      TRANS_TP = #{record.transTp,jdbcType=VARCHAR},
+      BIZ_FUNC_CD = #{record.bizFuncCd,jdbcType=VARCHAR},
+      TRANS_AT = #{record.transAt,jdbcType=VARCHAR},
+      TRANS_DT = #{record.transDt,jdbcType=VARCHAR},
+      TRANS_TM = #{record.transTm,jdbcType=VARCHAR},
+      BANK_TRANS_SEQ = #{record.bankTransSeq,jdbcType=VARCHAR},
+      ORG_TRANS_SEQ = #{record.orgTransSeq,jdbcType=VARCHAR},
+      ORG_TRANS_AT = #{record.orgTransAt,jdbcType=VARCHAR},
+      SGN_NO = #{record.sgnNo,jdbcType=VARCHAR},
+      PYER_ACCT_INS_CD = #{record.pyerAcctInsCd,jdbcType=VARCHAR},
+      PYER_ACCT_TP = #{record.pyerAcctTp,jdbcType=VARCHAR},
+      PYER_ACCT_NO = #{record.pyerAcctNo,jdbcType=VARCHAR},
+      PYEE_ACCT_INS_CD = #{record.pyeeAcctInsCd,jdbcType=VARCHAR},
+      PYEE_ACCT_TP = #{record.pyeeAcctTp,jdbcType=VARCHAR},
+      PYEE_ACCT_NO = #{record.pyeeAcctNo,jdbcType=VARCHAR},
+      PRV_BANK_ID_CD = #{record.prvBankIdCd,jdbcType=VARCHAR},
+      PRV_BANK_ACCT_NO = #{record.prvBankAcctNo,jdbcType=VARCHAR},
+      SETTLE_NUM = #{record.settleNum,jdbcType=VARCHAR},
+      ISS_ACQ = #{record.issAcq,jdbcType=CHAR},
+      BTP_NO = #{record.btpNo,jdbcType=VARCHAR},
+      RSV_FLD = #{record.rsvFld,jdbcType=VARCHAR},
+      RECNCL_ST = #{record.recnclSt,jdbcType=CHAR},
+      RECNCL_DESC = #{record.recnclDesc,jdbcType=VARCHAR},
+      OPER_IN = #{record.operIn,jdbcType=CHAR},
+      REC_UPD_USR_ID = #{record.recUpdUsrId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="map">
+    update ${tableName}
+    <set>
+      <if test="record.bussCd != null">
+        BUSS_CD = #{record.bussCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transTp != null">
+        TRANS_TP = #{record.transTp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bizFuncCd != null">
+        BIZ_FUNC_CD = #{record.bizFuncCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transAt != null">
+        TRANS_AT = #{record.transAt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transDt != null">
+        TRANS_DT = #{record.transDt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transTm != null">
+        TRANS_TM = #{record.transTm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankTransSeq != null">
+        BANK_TRANS_SEQ = #{record.bankTransSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orgTransSeq != null">
+        ORG_TRANS_SEQ = #{record.orgTransSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orgTransAt != null">
+        ORG_TRANS_AT = #{record.orgTransAt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sgnNo != null">
+        SGN_NO = #{record.sgnNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pyerAcctInsCd != null">
+        PYER_ACCT_INS_CD = #{record.pyerAcctInsCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pyerAcctTp != null">
+        PYER_ACCT_TP = #{record.pyerAcctTp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pyerAcctNo != null">
+        PYER_ACCT_NO = #{record.pyerAcctNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pyeeAcctInsCd != null">
+        PYEE_ACCT_INS_CD = #{record.pyeeAcctInsCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pyeeAcctTp != null">
+        PYEE_ACCT_TP = #{record.pyeeAcctTp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pyeeAcctNo != null">
+        PYEE_ACCT_NO = #{record.pyeeAcctNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prvBankIdCd != null">
+        PRV_BANK_ID_CD = #{record.prvBankIdCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prvBankAcctNo != null">
+        PRV_BANK_ACCT_NO = #{record.prvBankAcctNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.settleNum != null">
+        SETTLE_NUM = #{record.settleNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.issAcq != null">
+        ISS_ACQ = #{record.issAcq,jdbcType=CHAR},
+      </if>
+      <if test="record.btpNo != null">
+        BTP_NO = #{record.btpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rsvFld != null">
+        RSV_FLD = #{record.rsvFld,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recnclSt != null">
+        RECNCL_ST = #{record.recnclSt,jdbcType=CHAR},
+      </if>
+      <if test="record.recnclDesc != null">
+        RECNCL_DESC = #{record.recnclDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operIn != null">
+        OPER_IN = #{record.operIn,jdbcType=CHAR},
+      </if>
+      <if test="record.recUpdUsrId != null">
+        REC_UPD_USR_ID = #{record.recUpdUsrId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where BUSS_CD = #{bussCd,jdbcType=VARCHAR}
+      and SNDR_INS_ID_CD = #{sndrInsIdCd,jdbcType=VARCHAR}
+      and SETTLE_DT = #{settleDt,jdbcType=VARCHAR}
+      and TRANS_SEQ = #{transSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="map">
+    update ${tableName}
+    set TRANS_TP = #{record.transTp,jdbcType=VARCHAR},
+      BIZ_FUNC_CD = #{record.bizFuncCd,jdbcType=VARCHAR},
+      TRANS_AT = #{record.transAt,jdbcType=VARCHAR},
+      TRANS_DT = #{record.transDt,jdbcType=VARCHAR},
+      TRANS_TM = #{record.transTm,jdbcType=VARCHAR},
+      BANK_TRANS_SEQ = #{record.bankTransSeq,jdbcType=VARCHAR},
+      ORG_TRANS_SEQ = #{record.orgTransSeq,jdbcType=VARCHAR},
+      ORG_TRANS_AT = #{record.orgTransAt,jdbcType=VARCHAR},
+      SGN_NO = #{record.sgnNo,jdbcType=VARCHAR},
+      PYER_ACCT_INS_CD = #{record.pyerAcctInsCd,jdbcType=VARCHAR},
+      PYER_ACCT_TP = #{record.pyerAcctTp,jdbcType=VARCHAR},
+      PYER_ACCT_NO = #{record.pyerAcctNo,jdbcType=VARCHAR},
+      PYEE_ACCT_INS_CD = #{record.pyeeAcctInsCd,jdbcType=VARCHAR},
+      PYEE_ACCT_TP = #{record.pyeeAcctTp,jdbcType=VARCHAR},
+      PYEE_ACCT_NO = #{record.pyeeAcctNo,jdbcType=VARCHAR},
+      PRV_BANK_ID_CD = #{record.prvBankIdCd,jdbcType=VARCHAR},
+      PRV_BANK_ACCT_NO = #{record.prvBankAcctNo,jdbcType=VARCHAR},
+      SETTLE_NUM = #{record.settleNum,jdbcType=VARCHAR},
+      ISS_ACQ = #{record.issAcq,jdbcType=CHAR},
+      BTP_NO = #{record.btpNo,jdbcType=VARCHAR},
+      RSV_FLD = #{record.rsvFld,jdbcType=VARCHAR},
+      RECNCL_ST = #{record.recnclSt,jdbcType=CHAR},
+      RECNCL_DESC = #{record.recnclDesc,jdbcType=VARCHAR},
+      OPER_IN = #{record.operIn,jdbcType=CHAR},
+      REC_UPD_USR_ID = #{record.recUpdUsrId,jdbcType=VARCHAR}
+    where BUSS_CD = #{record.bussCd,jdbcType=VARCHAR}
+      and SNDR_INS_ID_CD = #{record.sndrInsIdCd,jdbcType=VARCHAR}
+      and SETTLE_DT = #{record.settleDt,jdbcType=VARCHAR}
+      and TRANS_SEQ = #{record.transSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

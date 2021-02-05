@@ -27,6 +27,9 @@ public class BatchRecnclProcessCommonJob extends QuartzJobBean {
     @Autowired
     TblQpbatUpComtrxServiceImpl tblQpbatUpComtrxService;
 
+    @Autowired
+    BatchRecnclProcessCommon batchRecnclProcessCommon;
+
     @Override
     protected void executeInternal(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         log.info("start.................");
@@ -35,6 +38,7 @@ public class BatchRecnclProcessCommonJob extends QuartzJobBean {
         //log.info("--------taskID:"+taskId+ "----------");
 
         //银联清算流水入库
+        /*
         Map<String, String> dataMap = new HashMap<String, String>();
         dataMap.put("UpTableName", "tbl_qpbat_up_comtrx01");
         dataMap.put("BussCd", "TESTBANK");
@@ -51,6 +55,9 @@ public class BatchRecnclProcessCommonJob extends QuartzJobBean {
         dataMap.put("SettleNum","13");
         dataMap.put("IssAcq","0");
         tblQpbatUpComtrxService.insertOneRecordIntoUpComtrx(dataMap);
+        */
+        batchRecnclProcessCommon.exeBatchRecnclCommonFlow(jobExecutionContext.getMergedJobDataMap());
+
         log.info("end...................");
 
 

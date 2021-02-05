@@ -20,7 +20,7 @@ public class BatchFileCommonProc {
         this.dstPath = dstPath;
     }
 
-    public int unzipFileWithPath(String fileNamePath){
+    public boolean unzipFileWithPath(String fileNamePath){
         if(fileNamePath.isEmpty() || !fileNamePath.matches(ZIP_SUFFIX)){
             log.error(E1_BP_0001,"【zip文件解压】待解压zip文件不合法，请检查");
             return BAT_FAIL;
@@ -42,7 +42,7 @@ public class BatchFileCommonProc {
         return BAT_SUCC;
     }
 
-    public int zipFileWithPath(String fileNamePath){
+    public boolean zipFileWithPath(String fileNamePath){
         if(fileNamePath.isEmpty()){
             log.error(E1_BP_0001,"【zip文件压缩】待压缩文件不合法，请检查");
             return BAT_FAIL;
@@ -63,7 +63,7 @@ public class BatchFileCommonProc {
         return BAT_SUCC;
     }
 
-    public int unrarFileWithPath(String fileNamePath){
+    public boolean unrarFileWithPath(String fileNamePath){
         if(fileNamePath.isEmpty() || !fileNamePath.matches(RAR_SUFFIX)){
             log.error(E1_BP_0001,"【rar文件解压】待解压rar文件不合法，请检查");
             return BAT_FAIL;
@@ -86,7 +86,7 @@ public class BatchFileCommonProc {
         return BAT_SUCC;
     }
 
-    public int rarFileWithPath(String fileNamePath){
+    public boolean rarFileWithPath(String fileNamePath){
         if(fileNamePath.isEmpty()){
             log.error(E1_BP_0001,"【rar文件压缩】待压缩文件不合法，请检查");
             return BAT_FAIL;
@@ -108,7 +108,7 @@ public class BatchFileCommonProc {
         return BAT_SUCC;
     }
 
-    public int untarFileWithPath(String fileNamePath){
+    public boolean untarFileWithPath(String fileNamePath){
         if(fileNamePath.isEmpty() || !fileNamePath.matches(RAR_SUFFIX)){
             log.error(E1_BP_0001,"【tar文件解压】待解压tar文件不合法，请检查");
             return BAT_FAIL;
@@ -131,7 +131,7 @@ public class BatchFileCommonProc {
         return BAT_SUCC;
     }
 
-    public int tarFileWithPath(String fileNamePath){
+    public boolean tarFileWithPath(String fileNamePath){
         if(fileNamePath.isEmpty()){
             log.error(E1_BP_0001,"【tar文件压缩】待压缩文件不合法，请检查");
             return BAT_FAIL;
