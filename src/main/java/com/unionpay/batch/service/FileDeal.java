@@ -153,12 +153,11 @@ public class FileDeal {
                 fileMap.switchField(au,i);
                 i++;
             }
-            log.info("结束打印"+fileMap.toString());
 
             //银行文件单行入库
             if(isQpCupsDeatilInsert(fileMap)){
                 //
-                //
+                log.info("单行入库"+fileMap.toString());
                 continue;
             }
             else{
