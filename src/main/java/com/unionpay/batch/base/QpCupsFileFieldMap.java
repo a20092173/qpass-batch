@@ -37,8 +37,38 @@ public class QpCupsFileFieldMap {
     private String headEndFlag;
     //0:无头尾 1：有头无尾 2：无头有尾  3：有头有尾
     private int headLine;
-
     private int endLine;
+
+    //文件类型（xml，sep）
+    private String fileTp;
+    //分隔符
+    private String sep;
+    //编码格式(GBK,UTF-8)
+    private String code;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getFileTp() {
+        return fileTp;
+    }
+
+    public void setFileTp(String fileTp) {
+        this.fileTp = fileTp;
+    }
+
+    public String getSep() {
+        return sep;
+    }
+
+    public void setSep(String sep) {
+        this.sep = sep;
+    }
 
     public String getHeadEndFlag() {
         return headEndFlag;
