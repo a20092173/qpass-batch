@@ -138,9 +138,7 @@ public class FileDeal {
         //QpCupsN01File fileMap = new QpCupsN01File();
         //银联清算文件使用com/unionpay/batch/entity/TblQpbatUpComtrx类对接数据库实体
         TblQpbatUpComtrx fileMap = new TblQpbatUpComtrx();
-        fileMap.setHeadEndFlag("3");
-        fileMap.setHeadLine(2);
-        fileMap.setEndLine(1);
+
         fileMap.setOperIn("i");
         fileMap.setRecUpdUsrId("user");
         String line = "";
@@ -150,7 +148,7 @@ public class FileDeal {
             log.info("line="+line);
             arrs = singleLineResolveWithSep(line,";");
 
-            if(n < fileMap.getHeadLine()) {
+            if(n < 2) {
                 n++;
                 continue;
             }

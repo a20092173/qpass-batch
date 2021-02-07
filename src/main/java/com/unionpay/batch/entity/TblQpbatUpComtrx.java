@@ -66,13 +66,6 @@ public class TblQpbatUpComtrx{
 
     private Date recCrtTs;
 
-    //自定义区
-    private String headEndFlag;
-    //0:无头尾 1：有头无尾 2：无头有尾  3：有头有尾
-    private int headLine;
-    private int endLine;
-    //自定义区 over
-
     public String getBussCd() {
         return bussCd;
     }
@@ -321,30 +314,9 @@ public class TblQpbatUpComtrx{
         this.recCrtTs = recCrtTs;
     }
 
-    //自定义区
-    public String getHeadEndFlag() {
-        return headEndFlag;
-    }
-    public void setHeadEndFlag(String headEndFlag) {
-        this.headEndFlag = headEndFlag;
-    }
-    public int getHeadLine() {
-        return headLine;
-    }
-    public void setHeadLine(int headLine) {
-        this.headLine = headLine;
-    }
-    public int getEndLine() {
-        return endLine;
-    }
-    public void setEndLine(int endLine) {
-        this.endLine = endLine;
-    }
-    //自定义区 over
-
     @Override
     public String toString() {
-        return "QpCupsFileFieldMap{" +
+        return "TblQpbatUpComtrx{" +
                 "bussCd='" + bussCd + '\'' +
                 ", transSeq='" + transSeq + '\'' +
                 ", sndrInsIdCd='" + sndrInsIdCd + '\'' +

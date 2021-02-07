@@ -222,4 +222,66 @@ public class TblQpbatStdBankDetail{
     public void setRecCrtTs(Date recCrtTs) {
         this.recCrtTs = recCrtTs;
     }
+
+    @Override
+    public String toString() {
+        return "TblQpbatStdBankDetail{" +
+                "bussCd='" + bussCd + '\'' +
+                ", settleDt='" + settleDt + '\'' +
+                ", bankTransSeq='" + bankTransSeq + '\'' +
+                ", issAcq='" + issAcq + '\'' +
+                ", transDt='" + transDt + '\'' +
+                ", transTm='" + transTm + '\'' +
+                ", outActNo='" + outActNo + '\'' +
+                ", inActNo='" + inActNo + '\'' +
+                ", bankTransAt='" + bankTransAt + '\'' +
+                ", transSeq='" + transSeq + '\'' +
+                ", sndrInsIdCd='" + sndrInsIdCd + '\'' +
+                ", transTp='" + transTp + '\'' +
+                ", bizFuncId='" + bizFuncId + '\'' +
+                ", settleNum='" + settleNum + '\'' +
+                ", lineBuf='" + lineBuf + '\'' +
+                ", rsvFld='" + rsvFld + '\'' +
+                ", recnclSt='" + recnclSt + '\'' +
+                ", recnclDesc='" + recnclDesc + '\'' +
+                ", operIn='" + operIn + '\'' +
+                ", recUpdUsrId='" + recUpdUsrId + '\'' +
+                ", recUpdTs=" + recUpdTs +
+                ", recCrtTs=" + recCrtTs +
+                '}';
+    }
+
+    public void switchField(String s, int i){
+        switch (i) {
+            case 0:
+                break;
+            case 1:
+                setTransSeq(s);
+                break;
+            case 2:
+                setBankTransSeq(s);
+                break;
+            case 3:
+                setSndrInsIdCd(s);
+                break;
+            case 5:
+                setTransDt(s);
+                break;
+            case 6:
+                setTransTm(s);
+                break;
+            case 7:
+                setOutActNo(s);
+                setInActNo(s);
+                break;
+            case 9:
+                setBankTransAt(s);
+                break;
+            case 11:
+                setSettleDt(s);
+                break;
+            default:
+                break;
+        }
+    }
 }
