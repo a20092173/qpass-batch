@@ -5,6 +5,7 @@ package com.unionpay.batch.jobs;
 
 import com.unionpay.batch.service.imp.TblQpbatSequenceServiceImpl;
 import com.unionpay.batch.service.imp.TblQpbatUpComtrxServiceImpl;
+import com.unionpay.batch.tasks.BatchRecnclProcessCommon;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;

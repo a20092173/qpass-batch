@@ -1,4 +1,4 @@
-package com.unionpay.batch.jobs;
+package com.unionpay.batch.tasks;
 
 import com.unionpay.batch.base.QpCupsSumFile;
 import com.unionpay.batch.base.QpCupsSumfileSummryHead;
