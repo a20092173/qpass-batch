@@ -35,9 +35,12 @@
         <!--
         <table schema="" tableName="tbl_qpbat_sequence"></table>
         <table schema="" tableName="tbl_qpbat_up_comtrx01"></table>
-	<table schema="" tableName="tbl_qpbat_std_bank_detail01"></table>
-
-        -->
+        <table schema="" tableName="tbl_qpbat_std_bank_detail01"></table>
         <table schema="" tableName="tbl_qpbat_bat_task_st"></table>
+        <table schema="" tableName="tbl_qpbat_file_fmt_inf"></table>
+        <table schema="" tableName="tbl_qpbat_file_fld_attr"></table>
+        <table schema="" tableName="tbl_qpbat_recncl_rst_com01"></table>
+        -->
+        <table schema="" tableName="tbl_qpbat_recncl_rst_com"></table>
     </context>
 </generatorConfiguration>
