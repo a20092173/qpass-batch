@@ -9,6 +9,8 @@ public interface BatchGlobalVariable {
     public static final String ZIP_SUFFIX = ".zip";  //.zip
 
     public static final String RAR_SUFFIX = ".rar";  //.rar
+    public static final String TAR_SUFFIX = ".tar";  //.rar
+    public static final String GZ_SUFFIX = ".gz";  //.rar
 
     public static final String SFTP_MARK = "sftp";
 

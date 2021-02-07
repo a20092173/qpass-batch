@@ -93,6 +93,12 @@
 			<artifactId>commons-net</artifactId>
 			<version>3.6</version>
 		</dependency>
+		<!--file压缩解压使用-->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-compress</artifactId>
+			<version>1.12</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
@@ -106,7 +112,7 @@
 				<artifactId>mybatis-generator-maven-plugin</artifactId>
 				<version>1.3.2</version>
 				<configuration>
-					<configurationFile>D:/qpass-batch/src/main/resources/generator/generatorConfig.xml</configurationFile>
+					<configurationFile>E:/qpass_batch/src/main/resources/generator/generatorConfig.xml</configurationFile>
 					<overwrite>true</overwrite>
 					<verbose>true</verbose>
 				</configuration>
