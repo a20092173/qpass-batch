@@ -161,7 +161,7 @@ public class FileDeal {
             for (String au : arrs) {
                 //log.info("au["+ i +"]:" + au);
                 //log.info("i = "+i);
-                fileMap.switchField(au,i);
+
                 i++;
             }
             //银行文件单行入库

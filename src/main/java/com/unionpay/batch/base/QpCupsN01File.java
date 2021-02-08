@@ -276,7 +276,7 @@ public class QpCupsN01File {
             for (String au : arrs) {
 
                 //log.info("i = "+i);
-                fileMap.switchField(au,i);
+                switchField(fileMap,au,i);
                 i++;
             }
 
@@ -320,5 +320,62 @@ public class QpCupsN01File {
             return false;
         }
         return true;
+    }
+
+    public void switchField(TblQpbatUpComtrx upComtrx, String s, int i){
+        switch (i) {
+            case 0:
+                break;
+            case 1:
+                upComtrx.setTransTp(s);
+                break;
+            case 2:
+                upComtrx.setTransSeq(s);
+                break;
+            case 3:
+                upComtrx.setTransAt(s);
+                break;
+            case 5:
+                upComtrx.setSettleDt(s);
+                break;
+            case 6:
+                upComtrx.setOrgTransSeq(s);
+                break;
+            case 7:
+                upComtrx.setOrgTransAt(s);
+                break;
+            case 9:
+                upComtrx.setSndrInsIdCd(s);
+                break;
+            case 10:
+                upComtrx.setPyerAcctInsCd(s);
+                break;
+            case 11:
+                upComtrx.setPyerAcctTp(s);
+                break;
+            case 12:
+                upComtrx.setPyerAcctNo(s);
+                break;
+            case 15:
+                upComtrx.setPyeeAcctInsCd(s);
+                break;
+            case 16:
+                upComtrx.setPyeeAcctTp(s);
+                break;
+            case 17:
+                upComtrx.setPyeeAcctNo(s);
+                break;
+            case 34:
+                upComtrx.setSettleNum(s);
+                break;
+            case 36:
+                if(s.length() == 16) {
+                    upComtrx.setTransDt(s.substring(0, 8));
+                    upComtrx.setTransTm(s.substring(8));
+                }
+                break;
+            default:
+                break;
+        }
     }
 }

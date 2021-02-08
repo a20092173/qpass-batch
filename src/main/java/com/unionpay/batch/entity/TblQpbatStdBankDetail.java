@@ -251,37 +251,4 @@ public class TblQpbatStdBankDetail{
                 '}';
     }
 
-    public void switchField(String s, int i){
-        switch (i) {
-            case 0:
-                break;
-            case 1:
-                setTransSeq(s);
-                break;
-            case 2:
-                setBankTransSeq(s);
-                break;
-            case 3:
-                setSndrInsIdCd(s);
-                break;
-            case 5:
-                setTransDt(s);
-                break;
-            case 6:
-                setTransTm(s);
-                break;
-            case 7:
-                setOutActNo(s);
-                setInActNo(s);
-                break;
-            case 9:
-                setBankTransAt(s);
-                break;
-            case 11:
-                setSettleDt(s);
-                break;
-            default:
-                break;
-        }
-    }
 }

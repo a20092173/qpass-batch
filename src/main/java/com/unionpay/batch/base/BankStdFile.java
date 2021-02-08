@@ -104,7 +104,7 @@ public class BankStdFile {
             for (String au : arrs) {
 
                 //log.info("i = "+i);
-                fileMap.switchField(au,i);
+                switchField(fileMap,au,i);
                 i++;
             }
 
@@ -138,6 +138,40 @@ public class BankStdFile {
     public boolean isStdBankDeatilInsert(TblQpbatStdBankDetail stdBankDetail){
 
         return true;
+    }
+
+    public void switchField(TblQpbatStdBankDetail stdBankDetail,String s, int i){
+        switch (i) {
+            case 0:
+                break;
+            case 1:
+                stdBankDetail.setTransSeq(s);
+                break;
+            case 2:
+                stdBankDetail.setBankTransSeq(s);
+                break;
+            case 3:
+                stdBankDetail.setSndrInsIdCd(s);
+                break;
+            case 5:
+                stdBankDetail.setTransDt(s);
+                break;
+            case 6:
+                stdBankDetail.setTransTm(s);
+                break;
+            case 7:
+                stdBankDetail.setOutActNo(s);
+                stdBankDetail.setInActNo(s);
+                break;
+            case 9:
+                stdBankDetail.setBankTransAt(s);
+                break;
+            case 11:
+                stdBankDetail.setSettleDt(s);
+                break;
+            default:
+                break;
+        }
     }
 
 }
