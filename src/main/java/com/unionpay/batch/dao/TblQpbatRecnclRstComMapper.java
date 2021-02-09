@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Param;
 public interface TblQpbatRecnclRstComMapper {
     int countByExample(@Param("tableName") String tableName, @Param("example") TblQpbatRecnclRstComExample example);
 
-    int deleteByExample(TblQpbatRecnclRstComExample example);
+    int deleteByExample(@Param("tableName") String tableName, @Param("example") TblQpbatRecnclRstComExample example);
 
     int deleteByPrimaryKey(@Param("tableName") String tableName, @Param("record") TblQpbatRecnclRstCom record);
 

@@ -429,24 +429,45 @@
   <update id="updateByPrimaryKey" parameterType="map" >
     update ${tableName}
     set TRANS_DT = #{record.transDt,jdbcType=VARCHAR},
-      TRANS_TM = #{record.transTm,jdbcType=VARCHAR},
-      OUT_ACT_NO = #{record.outActNo,jdbcType=VARCHAR},
-      IN_ACT_NO = #{record.inActNo,jdbcType=VARCHAR},
-      BANK_TRANS_AT = #{record.bankTransAt,jdbcType=VARCHAR},
-      TRANS_SEQ = #{record.transSeq,jdbcType=VARCHAR},
-      SNDR_INS_ID_CD = #{record.sndrInsIdCd,jdbcType=VARCHAR},
-      TRANS_TP = #{record.transTp,jdbcType=VARCHAR},
-      BIZ_FUNC_ID = #{record.bizFuncId,jdbcType=VARCHAR},
-      SETTLE_NUM = #{record.settleNum,jdbcType=VARCHAR},
-      LINE_BUF = #{record.lineBuf,jdbcType=VARCHAR},
-      RSV_FLD = #{record.rsvFld,jdbcType=VARCHAR},
-      RECNCL_ST = #{record.recnclSt,jdbcType=CHAR},
-      RECNCL_DESC = #{record.recnclDesc,jdbcType=VARCHAR},
-      OPER_IN = #{record.operIn,jdbcType=CHAR},
-      REC_UPD_USR_ID = #{record.recUpdUsrId,jdbcType=VARCHAR}
-    where BUSS_CD = #{bussCd,jdbcType=VARCHAR}
+    TRANS_TM = #{record.transTm,jdbcType=VARCHAR},
+    OUT_ACT_NO = #{record.outActNo,jdbcType=VARCHAR},
+    IN_ACT_NO = #{record.inActNo,jdbcType=VARCHAR},
+    BANK_TRANS_AT = #{record.bankTransAt,jdbcType=VARCHAR},
+    TRANS_SEQ = #{record.transSeq,jdbcType=VARCHAR},
+    SNDR_INS_ID_CD = #{record.sndrInsIdCd,jdbcType=VARCHAR},
+    TRANS_TP = #{record.transTp,jdbcType=VARCHAR},
+    BIZ_FUNC_ID = #{record.bizFuncId,jdbcType=VARCHAR},
+    SETTLE_NUM = #{record.settleNum,jdbcType=VARCHAR},
+    LINE_BUF = #{record.lineBuf,jdbcType=VARCHAR},
+    RSV_FLD = #{record.rsvFld,jdbcType=VARCHAR},
+    RECNCL_ST = #{record.recnclSt,jdbcType=CHAR},
+    RECNCL_DESC = #{record.recnclDesc,jdbcType=VARCHAR},
+    OPER_IN = #{record.operIn,jdbcType=CHAR},
+    REC_UPD_USR_ID = #{record.recUpdUsrId,jdbcType=VARCHAR}
+    where BUSS_CD = #{record.bussCd,jdbcType=VARCHAR}
+    and SETTLE_DT = #{record.settleDt,jdbcType=VARCHAR}
+    and BANK_TRANS_SEQ = #{record.bankTransSeq,jdbcType=VARCHAR}
+    and ISS_ACQ = #{record.issAcq,jdbcType=CHAR}
+  </update>
+  <update id="update3002StdBkDtl1" parameterType="map" >
+    update ${tableName}
+    set RECNCL_ST=(case when trans_tp='3002' then '10' else '11' end),
+    RECNCL_DESC=(case when trans_tp='3002' then '勾对相平-成功的终态通知交易' else '勾对相平-成功的冲正交易' end)
+    where BUSS_CD = #{record.bussCd,jdbcType=VARCHAR}
       and SETTLE_DT = #{record.settleDt,jdbcType=VARCHAR}
-      and BANK_TRANS_SEQ = #{record.bankTransSeq,jdbcType=VARCHAR}
-      and ISS_ACQ = #{record.issAcq,jdbcType=CHAR}
+      and ((trans_tp='3002' and substring(trans_st,1,1)='0')
+      or (trans_tp in(select trxtyp_cd from tbl_qpbat_trxtyp_inf where recncl_st='1')
+         and substring(trans_st,2,1)='1'))
+  </update>
+  <update id="update3002StdBkDtl2" parameterType="map" >
+    update ${tableName}
+    set RECNCL_ST=(case when trans_tp='3002' then '10' else '11' end),
+    RECNCL_DESC=(case when trans_tp='3002' then '勾对相平-成功的终态通知交易' else '勾对相平-成功的冲正交易' end)
+    where BUSS_CD = #{recordbussCd,jdbcType=VARCHAR}
+    and SETTLE_DT = #{record.settleDt,jdbcType=VARCHAR}
+    and SETTLE_NUM = #{record.settleNum,jdbcType=VARCHAR}
+    and ((trans_tp='3002' and substring(trans_st,1,1)='0')
+    or (trans_tp in(select trxtyp_cd from tbl_qpbat_trxtyp_inf where recncl_st='1')
+    and substring(trans_st,2,1)='1'))
   </update>
 </mapper>

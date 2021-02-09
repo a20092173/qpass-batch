@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.unionpay.batch.dao.TblQpbatFileFmtInfMapper" >
+  <resultMap id="BaseResultMap" type="com.unionpay.batch.entity.TblQpbatFileFmtInf" >
+    <id column="FILE_FLD_IDX" property="fileFldIdx" jdbcType="VARCHAR" />
+    <result column="FILE_TYP" property="fileTyp" jdbcType="VARCHAR" />
+    <result column="FILE_FMT" property="fileFmt" jdbcType="VARCHAR" />
+    <result column="FILE_SEP" property="fileSep" jdbcType="VARCHAR" />
+    <result column="HEAD_FLG" property="headFlg" jdbcType="CHAR" />
+    <result column="HEAD_LIN" property="headLin" jdbcType="INTEGER" />
+    <result column="END_LIN" property="endLin" jdbcType="INTEGER" />
+    <result column="TBL_NM" property="tblNm" jdbcType="VARCHAR" />
+    <result column="OPEN_IN" property="openIn" jdbcType="CHAR" />
+    <result column="REC_UPD_USR_ID" property="recUpdUsrId" jdbcType="VARCHAR" />
+    <result column="REC_UPD_TS" property="recUpdTs" jdbcType="TIMESTAMP" />
+    <result column="REC_CRT_TS" property="recCrtTs" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    FILE_FLD_IDX, FILE_TYP, FILE_FMT, FILE_SEP, HEAD_FLG, HEAD_LIN, END_LIN, TBL_NM, 
+    OPEN_IN, REC_UPD_USR_ID, REC_UPD_TS, REC_CRT_TS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.batch.entity.TblQpbatFileFmtInfExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_qpbat_file_fmt_inf
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_qpbat_file_fmt_inf
+    where FILE_FLD_IDX = #{fileFldIdx,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tbl_qpbat_file_fmt_inf
+    where FILE_FLD_IDX = #{fileFldIdx,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.unionpay.batch.entity.TblQpbatFileFmtInfExample" >
+    delete from tbl_qpbat_file_fmt_inf
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.unionpay.batch.entity.TblQpbatFileFmtInf" >
+    insert into tbl_qpbat_file_fmt_inf (FILE_FLD_IDX, FILE_TYP, FILE_FMT, 
+      FILE_SEP, HEAD_FLG, HEAD_LIN, 
+      END_LIN, TBL_NM, OPEN_IN, 
+      REC_UPD_USR_ID, REC_UPD_TS, REC_CRT_TS
+      )
+    values (#{fileFldIdx,jdbcType=VARCHAR}, #{fileTyp,jdbcType=VARCHAR}, #{fileFmt,jdbcType=VARCHAR}, 
+      #{fileSep,jdbcType=VARCHAR}, #{headFlg,jdbcType=CHAR}, #{headLin,jdbcType=INTEGER}, 
+      #{endLin,jdbcType=INTEGER}, #{tblNm,jdbcType=VARCHAR}, #{openIn,jdbcType=CHAR}, 
+      #{recUpdUsrId,jdbcType=VARCHAR}, #{recUpdTs,jdbcType=TIMESTAMP}, #{recCrtTs,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.unionpay.batch.entity.TblQpbatFileFmtInf" >
+    insert into tbl_qpbat_file_fmt_inf
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fileFldIdx != null" >
+        FILE_FLD_IDX,
+      </if>
+      <if test="fileTyp != null" >
+        FILE_TYP,
+      </if>
+      <if test="fileFmt != null" >
+        FILE_FMT,
+      </if>
+      <if test="fileSep != null" >
+        FILE_SEP,
+      </if>
+      <if test="headFlg != null" >
+        HEAD_FLG,
+      </if>
+      <if test="headLin != null" >
+        HEAD_LIN,
+      </if>
+      <if test="endLin != null" >
+        END_LIN,
+      </if>
+      <if test="tblNm != null" >
+        TBL_NM,
+      </if>
+      <if test="openIn != null" >
+        OPEN_IN,
+      </if>
+      <if test="recUpdUsrId != null" >
+        REC_UPD_USR_ID,
+      </if>
+      <if test="recUpdTs != null" >
+        REC_UPD_TS,
+      </if>
+      <if test="recCrtTs != null" >
+        REC_CRT_TS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fileFldIdx != null" >
+        #{fileFldIdx,jdbcType=VARCHAR},
+      </if>
+      <if test="fileTyp != null" >
+        #{fileTyp,jdbcType=VARCHAR},
+      </if>
+      <if test="fileFmt != null" >
+        #{fileFmt,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSep != null" >
+        #{fileSep,jdbcType=VARCHAR},
+      </if>
+      <if test="headFlg != null" >
+        #{headFlg,jdbcType=CHAR},
+      </if>
+      <if test="headLin != null" >
+        #{headLin,jdbcType=INTEGER},
+      </if>
+      <if test="endLin != null" >
+        #{endLin,jdbcType=INTEGER},
+      </if>
+      <if test="tblNm != null" >
+        #{tblNm,jdbcType=VARCHAR},
+      </if>
+      <if test="openIn != null" >
+        #{openIn,jdbcType=CHAR},
+      </if>
+      <if test="recUpdUsrId != null" >
+        #{recUpdUsrId,jdbcType=VARCHAR},
+      </if>
+      <if test="recUpdTs != null" >
+        #{recUpdTs,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recCrtTs != null" >
+        #{recCrtTs,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.unionpay.batch.entity.TblQpbatFileFmtInfExample" resultType="java.lang.Integer" >
+    select count(*) from tbl_qpbat_file_fmt_inf
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbl_qpbat_file_fmt_inf
+    <set >
+      <if test="record.fileFldIdx != null" >
+        FILE_FLD_IDX = #{record.fileFldIdx,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileTyp != null" >
+        FILE_TYP = #{record.fileTyp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileFmt != null" >
+        FILE_FMT = #{record.fileFmt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileSep != null" >
+        FILE_SEP = #{record.fileSep,jdbcType=VARCHAR},
+      </if>
+      <if test="record.headFlg != null" >
+        HEAD_FLG = #{record.headFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.headLin != null" >
+        HEAD_LIN = #{record.headLin,jdbcType=INTEGER},
+      </if>
+      <if test="record.endLin != null" >
+        END_LIN = #{record.endLin,jdbcType=INTEGER},
+      </if>
+      <if test="record.tblNm != null" >
+        TBL_NM = #{record.tblNm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.openIn != null" >
+        OPEN_IN = #{record.openIn,jdbcType=CHAR},
+      </if>
+      <if test="record.recUpdUsrId != null" >
+        REC_UPD_USR_ID = #{record.recUpdUsrId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recUpdTs != null" >
+        REC_UPD_TS = #{record.recUpdTs,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.recCrtTs != null" >
+        REC_CRT_TS = #{record.recCrtTs,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tbl_qpbat_file_fmt_inf
+    set FILE_FLD_IDX = #{record.fileFldIdx,jdbcType=VARCHAR},
+      FILE_TYP = #{record.fileTyp,jdbcType=VARCHAR},
+      FILE_FMT = #{record.fileFmt,jdbcType=VARCHAR},
+      FILE_SEP = #{record.fileSep,jdbcType=VARCHAR},
+      HEAD_FLG = #{record.headFlg,jdbcType=CHAR},
+      HEAD_LIN = #{record.headLin,jdbcType=INTEGER},
+      END_LIN = #{record.endLin,jdbcType=INTEGER},
+      TBL_NM = #{record.tblNm,jdbcType=VARCHAR},
+      OPEN_IN = #{record.openIn,jdbcType=CHAR},
+      REC_UPD_USR_ID = #{record.recUpdUsrId,jdbcType=VARCHAR},
+      REC_UPD_TS = #{record.recUpdTs,jdbcType=TIMESTAMP},
+      REC_CRT_TS = #{record.recCrtTs,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.batch.entity.TblQpbatFileFmtInf" >
+    update tbl_qpbat_file_fmt_inf
+    <set >
+      <if test="fileTyp != null" >
+        FILE_TYP = #{fileTyp,jdbcType=VARCHAR},
+      </if>
+      <if test="fileFmt != null" >
+        FILE_FMT = #{fileFmt,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSep != null" >
+        FILE_SEP = #{fileSep,jdbcType=VARCHAR},
+      </if>
+      <if test="headFlg != null" >
+        HEAD_FLG = #{headFlg,jdbcType=CHAR},
+      </if>
+      <if test="headLin != null" >
+        HEAD_LIN = #{headLin,jdbcType=INTEGER},
+      </if>
+      <if test="endLin != null" >
+        END_LIN = #{endLin,jdbcType=INTEGER},
+      </if>
+      <if test="tblNm != null" >
+        TBL_NM = #{tblNm,jdbcType=VARCHAR},
+      </if>
+      <if test="openIn != null" >
+        OPEN_IN = #{openIn,jdbcType=CHAR},
+      </if>
+      <if test="recUpdUsrId != null" >
+        REC_UPD_USR_ID = #{recUpdUsrId,jdbcType=VARCHAR},
+      </if>
+      <if test="recUpdTs != null" >
+        REC_UPD_TS = #{recUpdTs,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recCrtTs != null" >
+        REC_CRT_TS = #{recCrtTs,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where FILE_FLD_IDX = #{fileFldIdx,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.batch.entity.TblQpbatFileFmtInf" >
+    update tbl_qpbat_file_fmt_inf
+    set FILE_TYP = #{fileTyp,jdbcType=VARCHAR},
+      FILE_FMT = #{fileFmt,jdbcType=VARCHAR},
+      FILE_SEP = #{fileSep,jdbcType=VARCHAR},
+      HEAD_FLG = #{headFlg,jdbcType=CHAR},
+      HEAD_LIN = #{headLin,jdbcType=INTEGER},
+      END_LIN = #{endLin,jdbcType=INTEGER},
+      TBL_NM = #{tblNm,jdbcType=VARCHAR},
+      OPEN_IN = #{openIn,jdbcType=CHAR},
+      REC_UPD_USR_ID = #{recUpdUsrId,jdbcType=VARCHAR},
+      REC_UPD_TS = #{recUpdTs,jdbcType=TIMESTAMP},
+      REC_CRT_TS = #{recCrtTs,jdbcType=TIMESTAMP}
+    where FILE_FLD_IDX = #{fileFldIdx,jdbcType=VARCHAR}
+  </update>
+</mapper>

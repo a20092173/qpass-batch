@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.unionpay.batch.dao.RecCupsAndBankRecordsMapper">
+  <update id="updCupsAndBankTblRecStForRecAmt1" parameterType="com.unionpay.batch.entity.RecCupsAndBankRecords">
+    update ${record.cupsTblNm} a,${record.bankTblNm} b
+    set a.recncl_st=(case when a.trans_at=b.bank_trans_at then '01'
+      when a.trans_at!=b.bank_trans_at then '03' end),
+      a.recncl_desc=(case when a.trans_at=b.bank_trans_at then '勾兑相平-成功勾兑'
+      when a.trans_at!=b.bank_trans_at then '勾兑不平-金额不一致' end),
+      a.bank_trans_seq=b.bank_trans_seq,
+      b.recncl_st=(case when a.trans_at=b.bank_trans_at then '01'
+      when a.trans_at!=b.bank_trans_at then '03' end),
+      b.recncl_desc=(case when a.trans_at=b.bank_trans_at then '勾兑相平-成功勾兑'
+      when a.trans_at!=b.bank_trans_at then '勾兑不平-金额不一致' end)
+    where a.sndr_ins_id_cd=b.sndr_ins_id_cd
+      and a.iss_acq=b.iss_acq
+      and a.trans_seq=b.trans_seq
+      and a.settle_dt=#{record.settleDt,jdbcType=VARCHAR}
+      and b.settle_dt=#{record.settleDt,jdbcType=VARCHAR}
+      and a.buss_cd=#{record.bussCd,jdbcType=VARCHAR}
+      and b.buss_cd=#{record.bussCd,jdbcType=VARCHAR}
+  </update>
+  <update id="updCupsAndBankTblRecStForRecAmt2" parameterType="com.unionpay.batch.entity.RecCupsAndBankRecords">
+    update ${record.cupsTblNm} a,${record.bankTblNm} b
+    set a.recncl_st=(case when a.trans_at=b.bank_trans_at then '01'
+    when a.trans_at!=b.bank_trans_at then '03' end),
+    a.recncl_desc=(case when a.trans_at=b.bank_trans_at then '勾兑相平-成功勾兑'
+    when a.trans_at!=b.bank_trans_at then '勾兑不平-金额不一致' end),
+    a.bank_trans_seq=b.bank_trans_seq,
+    b.recncl_st=(case when a.trans_at=b.bank_trans_at then '01'
+    when a.trans_at!=b.bank_trans_at then '03' end),
+    b.recncl_desc=(case when a.trans_at=b.bank_trans_at then '勾兑相平-成功勾兑'
+    when a.trans_at!=b.bank_trans_at then '勾兑不平-金额不一致' end)
+    where a.sndr_ins_id_cd=b.sndr_ins_id_cd
+    and a.iss_acq=b.iss_acq
+    and a.trans_seq=b.trans_seq
+    and a.settle_dt=#{record.settleDt,jdbcType=VARCHAR}
+    and b.settle_dt=#{record.settleDt,jdbcType=VARCHAR}
+    and a.buss_cd=#{record.bussCd,jdbcType=VARCHAR}
+    and b.buss_cd=#{record.bussCd,jdbcType=VARCHAR}
+    and a.settle_num=#{record.settleNum,jdbcType=VARCHAR}
+    and b.settle_num=#{record.settleNum,jdbcType=VARCHAR}
+  </update>
+  <update id="updCupsMoreRecords1" parameterType="com.unionpay.batch.entity.RecCupsAndBankRecords">
+    update ${record.cupsTblNm} set recncl_st='02',
+      recncl_desc='勾兑不平-银联有银行无'
+    where buss_cd=#{record.bussCd,jdbcType=VARCHAR}
+    and settle_dt=#{record.settleDt,jdbcType=VARCHAR}
+    and recncl_st='00'
+    and (trans_seq,sndr_ins_id_cd,iss_acq) not in(
+    select trans_seq,sndr_ins_id_cd,iss_acq from ${record.bankTblNm}
+    where buss_cd=#{record.bussCd,jdbcType=VARCHAR}
+    and settle_dt=#{record.settleDt,jdbcType=VARCHAR})
+  </update>
+  <update id="updCupsMoreRecords2" parameterType="com.unionpay.batch.entity.RecCupsAndBankRecords">
+    update ${record.cupsTblNm} set recncl_st='02',
+    recncl_desc='勾兑不平-银联有银行无'
+    where buss_cd=#{record.bussCd,jdbcType=VARCHAR}
+    and settle_dt=#{record.settleDt,jdbcType=VARCHAR}
+    and settle_num=#{record.settleNum,jdbcType=VARCHAR}
+    and recncl_st='00'
+    and (trans_seq,sndr_ins_id_cd,iss_acq) not in(
+    select trans_seq,sndr_ins_id_cd,iss_acq from ${record.bankTblNm}
+    where buss_cd=#{record.bussCd,jdbcType=VARCHAR}
+    and settle_dt=#{record.settleDt,jdbcType=VARCHAR}
+    and settle_num=#{record.settleNum,jdbcType=VARCHAR})
+  </update>
+  <update id="updBankMoreRecords1" parameterType="com.unionpay.batch.entity.RecCupsAndBankRecords">
+    update ${record.bankTblNm} set recncl_st='02',
+    recncl_desc='勾兑不平-银行有银联无'
+    where buss_cd=#{record.bussCd,jdbcType=VARCHAR}
+    and settle_dt=#{record.settleDt,jdbcType=VARCHAR}
+    and recncl_st='00'
+    and (trans_seq,sndr_ins_id_cd,iss_acq) not in(
+    select trans_seq,sndr_ins_id_cd,iss_acq from ${record.cupsTblNm}
+    where buss_cd=#{record.bussCd,jdbcType=VARCHAR}
+    and settle_dt=#{record.settleDt,jdbcType=VARCHAR})
+  </update>
+  <update id="updBankMoreRecords2" parameterType="com.unionpay.batch.entity.RecCupsAndBankRecords">
+    update ${record.bankTblNm} set recncl_st='02',
+    recncl_desc='勾兑不平-银行有银联无'
+    where buss_cd=#{record.bussCd,jdbcType=VARCHAR}
+    and settle_dt=#{record.settleDt,jdbcType=VARCHAR}
+    and settle_num=#{record.settleNum,jdbcType=VARCHAR}
+    and recncl_st='00'
+    and (trans_seq,sndr_ins_id_cd,iss_acq) not in(
+    select trans_seq,sndr_ins_id_cd,iss_acq from ${record.cupsTblNm}
+    where buss_cd=#{record.bussCd,jdbcType=VARCHAR}
+    and settle_dt=#{record.settleDt,jdbcType=VARCHAR}
+    and settle_num=#{record.settleNum,jdbcType=VARCHAR})
+  </update>
+  <insert id="selUpComtrxNoEqualIntoRetTbl1" parameterType="com.unionpay.batch.entity.RecCupsAndBankRecords">
+    insert into ${record.retTblNm} select
+    select buss_cd,trans_seq,sndr_ins_id_cd,settle_dt,trans_tp,biz_func_id,pyer_acct_no,pyee_acct_no,
+    cast(convert(right(trans_at,length(trans_at)-3)/100,decimal(12,2)) as char(12)),
+    settle_num,trans_dt,trans_tm,#{record.issAcq,jdbcType=VARCHAR},'00','01',btp_no,recncl_desc,
+    oper_in,rec_upd_usr_id,current_timestamp,current_timestamp from ${record.cupsTblNm}
+    where buss_cd = #{record.bussCd,jdbcType=VARCHAR}
+    and settle_dt = #{record.settleDt,jdbcType=VARCHAR}
+    and recncl_st in('02','03');
+  </insert>
+  <insert id="selUpComtrxNoEqualIntoRetTbl2" parameterType="com.unionpay.batch.entity.RecCupsAndBankRecords">
+    insert into ${record.retTblNm} select
+    select buss_cd,trans_seq,sndr_ins_id_cd,settle_dt,trans_tp,biz_func_id,pyer_acct_no,pyee_acct_no,
+    cast(convert(right(trans_at,length(trans_at)-3)/100,decimal(12,2)) as char(12)),
+    settle_num,trans_dt,trans_tm,#{record.issAcq,jdbcType=VARCHAR},'00','01',btp_no,recncl_desc,
+    oper_in,rec_upd_usr_id,current_timestamp,current_timestamp from ${record.cupsTblNm}
+    where buss_cd = #{record.bussCd,jdbcType=VARCHAR}
+    and settle_dt = #{record.settleDt,jdbcType=VARCHAR}
+    and settle_num = #{record.settleNum,jdbcType=VARCHAR}
+    and recncl_st in('02','03');
+  </insert>
+  <insert id="selUpComtrxEqualIntoRetTbl1" parameterType="com.unionpay.batch.entity.RecCupsAndBankRecords">
+    insert into ${record.retTblNm} select
+    select buss_cd,trans_seq,sndr_ins_id_cd,settle_dt,trans_tp,biz_func_id,pyer_acct_no,pyee_acct_no,
+    cast(convert(right(trans_at,length(trans_at)-3)/100,decimal(12,2)) as char(12)),
+    settle_num,trans_dt,trans_tm,#{record.issAcq,jdbcType=VARCHAR},'00','00',btp_no,recncl_desc,
+    oper_in,rec_upd_usr_id,current_timestamp,current_timestamp from ${record.cupsTblNm}
+    where buss_cd = #{record.bussCd,jdbcType=VARCHAR}
+    and settle_dt = #{record.settleDt,jdbcType=VARCHAR}
+    and recncl_st in('01');
+  </insert>
+  <insert id="selUpComtrxEqualIntoRetTbl2" parameterType="com.unionpay.batch.entity.RecCupsAndBankRecords">
+    insert into ${record.retTblNm} select
+    select buss_cd,trans_seq,sndr_ins_id_cd,settle_dt,trans_tp,biz_func_id,pyer_acct_no,pyee_acct_no,
+    cast(convert(right(trans_at,length(trans_at)-3)/100,decimal(12,2)) as char(12)),
+    settle_num,trans_dt,trans_tm,#{record.issAcq,jdbcType=VARCHAR},'00','00',btp_no,recncl_desc,
+    oper_in,rec_upd_usr_id,current_timestamp,current_timestamp from ${record.cupsTblNm}
+    where buss_cd = #{record.bussCd,jdbcType=VARCHAR}
+    and settle_dt = #{record.settleDt,jdbcType=VARCHAR}
+    and settle_num = #{record.settleNum,jdbcType=VARCHAR}
+    and recncl_st in('01');
+  </insert>
+  <insert id="selStdBkDtlNoEqualIntoRetTbl1" parameterType="com.unionpay.batch.entity.RecCupsAndBankRecords">
+    insert into ${record.retTblNm} select
+    select buss_cd,bank_trans_seq,sndr_ins_id_cd,settle_dt,trans_tp,biz_func_id,out_act_no,in_act_no,
+    cast(convert(right(bank_trans_at,length(bank_trans_at)-3)/100,decimal(12,2)) as char(12)),
+    settle_num,trans_dt,trans_tm,#{record.issAcq,jdbcType=VARCHAR},'00','02','',recncl_desc,
+    oper_in,rec_upd_usr_id,current_timestamp,current_timestamp from ${record.bankTblNm}
+    where buss_cd = #{record.bussCd,jdbcType=VARCHAR}
+    and settle_dt = #{record.settleDt,jdbcType=VARCHAR}
+    and recncl_st in('02','03');
+  </insert>
+  <insert id="selStdBkDtlNoEqualIntoRetTbl2" parameterType="com.unionpay.batch.entity.RecCupsAndBankRecords">
+    insert into ${record.retTblNm} select
+    select buss_cd,bank_trans_seq,sndr_ins_id_cd,settle_dt,trans_tp,biz_func_id,out_act_no,in_act_no,
+    cast(convert(right(bank_trans_at,length(bank_trans_at)-3)/100,decimal(12,2)) as char(12)),
+    settle_num,trans_dt,trans_tm,#{record.issAcq,jdbcType=VARCHAR},'00','02','',recncl_desc,
+    oper_in,rec_upd_usr_id,current_timestamp,current_timestamp from ${record.bankTblNm}
+    where buss_cd = #{record.bussCd,jdbcType=VARCHAR}
+    and settle_dt = #{record.settleDt,jdbcType=VARCHAR}
+    and settle_num = #{record.settleNum,jdbcType=VARCHAR}
+    and recncl_st in('02','03');
+  </insert>
+</mapper>

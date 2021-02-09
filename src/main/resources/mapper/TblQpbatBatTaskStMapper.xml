@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.unionpay.batch.dao.TblQpbatBatTaskStMapper" >
+  <resultMap id="BaseResultMap" type="com.unionpay.batch.entity.TblQpbatBatTaskSt" >
+    <id column="BUSS_CD" property="bussCd" jdbcType="VARCHAR" />
+    <id column="SETTLE_DT" property="settleDt" jdbcType="VARCHAR" />
+    <id column="TASK_ID" property="taskId" jdbcType="VARCHAR" />
+    <result column="TASK_SEQ" property="taskSeq" jdbcType="VARCHAR" />
+    <result column="TRANS_CODE" property="transCode" jdbcType="VARCHAR" />
+    <result column="TASK_NM" property="taskNm" jdbcType="VARCHAR" />
+    <result column="SETTLE_NUM" property="settleNum" jdbcType="VARCHAR" />
+    <result column="ISS_ACQ" property="issAcq" jdbcType="CHAR" />
+    <result column="TASK_DT" property="taskDt" jdbcType="VARCHAR" />
+    <result column="TASK_TM" property="taskTm" jdbcType="VARCHAR" />
+    <result column="PROC_ST" property="procSt" jdbcType="VARCHAR" />
+    <result column="REDO_ST" property="redoSt" jdbcType="CHAR" />
+    <result column="OPEN_IN" property="openIn" jdbcType="CHAR" />
+    <result column="REC_UPD_USR_ID" property="recUpdUsrId" jdbcType="VARCHAR" />
+    <result column="REC_UPD_TS" property="recUpdTs" jdbcType="TIMESTAMP" />
+    <result column="REC_CRT_TS" property="recCrtTs" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    BUSS_CD, SETTLE_DT, TASK_ID, TASK_SEQ, TRANS_CODE, TASK_NM, SETTLE_NUM, ISS_ACQ, 
+    TASK_DT, TASK_TM, PROC_ST, REDO_ST, OPEN_IN, REC_UPD_USR_ID, REC_UPD_TS, REC_CRT_TS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.batch.entity.TblQpbatBatTaskStExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_qpbat_bat_task_st
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.unionpay.batch.entity.TblQpbatBatTaskStKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_qpbat_bat_task_st
+    where BUSS_CD = #{bussCd,jdbcType=VARCHAR}
+      and SETTLE_DT = #{settleDt,jdbcType=VARCHAR}
+      and TASK_ID = #{taskId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.unionpay.batch.entity.TblQpbatBatTaskStKey" >
+    delete from tbl_qpbat_bat_task_st
+    where BUSS_CD = #{bussCd,jdbcType=VARCHAR}
+      and SETTLE_DT = #{settleDt,jdbcType=VARCHAR}
+      and TASK_ID = #{taskId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.unionpay.batch.entity.TblQpbatBatTaskStExample" >
+    delete from tbl_qpbat_bat_task_st
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.unionpay.batch.entity.TblQpbatBatTaskSt" >
+    insert into tbl_qpbat_bat_task_st (BUSS_CD, SETTLE_DT, TASK_ID, 
+      TASK_SEQ, TRANS_CODE, TASK_NM, 
+      SETTLE_NUM, ISS_ACQ, TASK_DT, 
+      TASK_TM, PROC_ST, REDO_ST, 
+      OPEN_IN, REC_UPD_USR_ID, REC_UPD_TS, 
+      REC_CRT_TS)
+    values (#{bussCd,jdbcType=VARCHAR}, #{settleDt,jdbcType=VARCHAR}, #{taskId,jdbcType=VARCHAR}, 
+      #{taskSeq,jdbcType=VARCHAR}, #{transCode,jdbcType=VARCHAR}, #{taskNm,jdbcType=VARCHAR}, 
+      #{settleNum,jdbcType=VARCHAR}, #{issAcq,jdbcType=CHAR}, #{taskDt,jdbcType=VARCHAR}, 
+      #{taskTm,jdbcType=VARCHAR}, #{procSt,jdbcType=VARCHAR}, #{redoSt,jdbcType=CHAR}, 
+      #{openIn,jdbcType=CHAR}, #{recUpdUsrId,jdbcType=VARCHAR}, #{recUpdTs,jdbcType=TIMESTAMP}, 
+      #{recCrtTs,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.unionpay.batch.entity.TblQpbatBatTaskSt" >
+    insert into tbl_qpbat_bat_task_st
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bussCd != null" >
+        BUSS_CD,
+      </if>
+      <if test="settleDt != null" >
+        SETTLE_DT,
+      </if>
+      <if test="taskId != null" >
+        TASK_ID,
+      </if>
+      <if test="taskSeq != null" >
+        TASK_SEQ,
+      </if>
+      <if test="transCode != null" >
+        TRANS_CODE,
+      </if>
+      <if test="taskNm != null" >
+        TASK_NM,
+      </if>
+      <if test="settleNum != null" >
+        SETTLE_NUM,
+      </if>
+      <if test="issAcq != null" >
+        ISS_ACQ,
+      </if>
+      <if test="taskDt != null" >
+        TASK_DT,
+      </if>
+      <if test="taskTm != null" >
+        TASK_TM,
+      </if>
+      <if test="procSt != null" >
+        PROC_ST,
+      </if>
+      <if test="redoSt != null" >
+        REDO_ST,
+      </if>
+      <if test="openIn != null" >
+        OPEN_IN,
+      </if>
+      <if test="recUpdUsrId != null" >
+        REC_UPD_USR_ID,
+      </if>
+      <if test="recUpdTs != null" >
+        REC_UPD_TS,
+      </if>
+      <if test="recCrtTs != null" >
+        REC_CRT_TS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bussCd != null" >
+        #{bussCd,jdbcType=VARCHAR},
+      </if>
+      <if test="settleDt != null" >
+        #{settleDt,jdbcType=VARCHAR},
+      </if>
+      <if test="taskId != null" >
+        #{taskId,jdbcType=VARCHAR},
+      </if>
+      <if test="taskSeq != null" >
+        #{taskSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="transCode != null" >
+        #{transCode,jdbcType=VARCHAR},
+      </if>
+      <if test="taskNm != null" >
+        #{taskNm,jdbcType=VARCHAR},
+      </if>
+      <if test="settleNum != null" >
+        #{settleNum,jdbcType=VARCHAR},
+      </if>
+      <if test="issAcq != null" >
+        #{issAcq,jdbcType=CHAR},
+      </if>
+      <if test="taskDt != null" >
+        #{taskDt,jdbcType=VARCHAR},
+      </if>
+      <if test="taskTm != null" >
+        #{taskTm,jdbcType=VARCHAR},
+      </if>
+      <if test="procSt != null" >
+        #{procSt,jdbcType=VARCHAR},
+      </if>
+      <if test="redoSt != null" >
+        #{redoSt,jdbcType=CHAR},
+      </if>
+      <if test="openIn != null" >
+        #{openIn,jdbcType=CHAR},
+      </if>
+      <if test="recUpdUsrId != null" >
+        #{recUpdUsrId,jdbcType=VARCHAR},
+      </if>
+      <if test="recUpdTs != null" >
+        #{recUpdTs,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recCrtTs != null" >
+        #{recCrtTs,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.unionpay.batch.entity.TblQpbatBatTaskStExample" resultType="java.lang.Integer" >
+    select count(*) from tbl_qpbat_bat_task_st
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbl_qpbat_bat_task_st
+    <set >
+      <if test="record.bussCd != null" >
+        BUSS_CD = #{record.bussCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.settleDt != null" >
+        SETTLE_DT = #{record.settleDt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskId != null" >
+        TASK_ID = #{record.taskId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskSeq != null" >
+        TASK_SEQ = #{record.taskSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transCode != null" >
+        TRANS_CODE = #{record.transCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskNm != null" >
+        TASK_NM = #{record.taskNm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.settleNum != null" >
+        SETTLE_NUM = #{record.settleNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.issAcq != null" >
+        ISS_ACQ = #{record.issAcq,jdbcType=CHAR},
+      </if>
+      <if test="record.taskDt != null" >
+        TASK_DT = #{record.taskDt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskTm != null" >
+        TASK_TM = #{record.taskTm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.procSt != null" >
+        PROC_ST = #{record.procSt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.redoSt != null" >
+        REDO_ST = #{record.redoSt,jdbcType=CHAR},
+      </if>
+      <if test="record.openIn != null" >
+        OPEN_IN = #{record.openIn,jdbcType=CHAR},
+      </if>
+      <if test="record.recUpdUsrId != null" >
+        REC_UPD_USR_ID = #{record.recUpdUsrId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recUpdTs != null" >
+        REC_UPD_TS = #{record.recUpdTs,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.recCrtTs != null" >
+        REC_CRT_TS = #{record.recCrtTs,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tbl_qpbat_bat_task_st
+    set BUSS_CD = #{record.bussCd,jdbcType=VARCHAR},
+      SETTLE_DT = #{record.settleDt,jdbcType=VARCHAR},
+      TASK_ID = #{record.taskId,jdbcType=VARCHAR},
+      TASK_SEQ = #{record.taskSeq,jdbcType=VARCHAR},
+      TRANS_CODE = #{record.transCode,jdbcType=VARCHAR},
+      TASK_NM = #{record.taskNm,jdbcType=VARCHAR},
+      SETTLE_NUM = #{record.settleNum,jdbcType=VARCHAR},
+      ISS_ACQ = #{record.issAcq,jdbcType=CHAR},
+      TASK_DT = #{record.taskDt,jdbcType=VARCHAR},
+      TASK_TM = #{record.taskTm,jdbcType=VARCHAR},
+      PROC_ST = #{record.procSt,jdbcType=VARCHAR},
+      REDO_ST = #{record.redoSt,jdbcType=CHAR},
+      OPEN_IN = #{record.openIn,jdbcType=CHAR},
+      REC_UPD_USR_ID = #{record.recUpdUsrId,jdbcType=VARCHAR},
+      REC_UPD_TS = #{record.recUpdTs,jdbcType=TIMESTAMP},
+      REC_CRT_TS = #{record.recCrtTs,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.batch.entity.TblQpbatBatTaskSt" >
+    update tbl_qpbat_bat_task_st
+    <set >
+      <if test="taskSeq != null" >
+        TASK_SEQ = #{taskSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="transCode != null" >
+        TRANS_CODE = #{transCode,jdbcType=VARCHAR},
+      </if>
+      <if test="taskNm != null" >
+        TASK_NM = #{taskNm,jdbcType=VARCHAR},
+      </if>
+      <if test="settleNum != null" >
+        SETTLE_NUM = #{settleNum,jdbcType=VARCHAR},
+      </if>
+      <if test="issAcq != null" >
+        ISS_ACQ = #{issAcq,jdbcType=CHAR},
+      </if>
+      <if test="taskDt != null" >
+        TASK_DT = #{taskDt,jdbcType=VARCHAR},
+      </if>
+      <if test="taskTm != null" >
+        TASK_TM = #{taskTm,jdbcType=VARCHAR},
+      </if>
+      <if test="procSt != null" >
+        PROC_ST = #{procSt,jdbcType=VARCHAR},
+      </if>
+      <if test="redoSt != null" >
+        REDO_ST = #{redoSt,jdbcType=CHAR},
+      </if>
+      <if test="openIn != null" >
+        OPEN_IN = #{openIn,jdbcType=CHAR},
+      </if>
+      <if test="recUpdUsrId != null" >
+        REC_UPD_USR_ID = #{recUpdUsrId,jdbcType=VARCHAR},
+      </if>
+      <if test="recUpdTs != null" >
+        REC_UPD_TS = #{recUpdTs,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recCrtTs != null" >
+        REC_CRT_TS = #{recCrtTs,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where BUSS_CD = #{bussCd,jdbcType=VARCHAR}
+      and SETTLE_DT = #{settleDt,jdbcType=VARCHAR}
+      and TASK_ID = #{taskId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.batch.entity.TblQpbatBatTaskSt" >
+    update tbl_qpbat_bat_task_st
+    set TASK_SEQ = #{taskSeq,jdbcType=VARCHAR},
+      TRANS_CODE = #{transCode,jdbcType=VARCHAR},
+      TASK_NM = #{taskNm,jdbcType=VARCHAR},
+      SETTLE_NUM = #{settleNum,jdbcType=VARCHAR},
+      ISS_ACQ = #{issAcq,jdbcType=CHAR},
+      TASK_DT = #{taskDt,jdbcType=VARCHAR},
+      TASK_TM = #{taskTm,jdbcType=VARCHAR},
+      PROC_ST = #{procSt,jdbcType=VARCHAR},
+      REDO_ST = #{redoSt,jdbcType=CHAR},
+      OPEN_IN = #{openIn,jdbcType=CHAR},
+      REC_UPD_USR_ID = #{recUpdUsrId,jdbcType=VARCHAR},
+      REC_UPD_TS = #{recUpdTs,jdbcType=TIMESTAMP},
+      REC_CRT_TS = #{recCrtTs,jdbcType=TIMESTAMP}
+    where BUSS_CD = #{bussCd,jdbcType=VARCHAR}
+      and SETTLE_DT = #{settleDt,jdbcType=VARCHAR}
+      and TASK_ID = #{taskId,jdbcType=VARCHAR}
+  </update>
+</mapper>

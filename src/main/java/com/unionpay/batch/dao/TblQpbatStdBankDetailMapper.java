@@ -29,4 +29,8 @@ public interface TblQpbatStdBankDetailMapper {
     int updateByPrimaryKeySelective(@Param("tableName") String tableName, @Param("record") TblQpbatStdBankDetail record);
 
     int updateByPrimaryKey(@Param("tableName") String tableName, @Param("record") TblQpbatStdBankDetail record);
+
+    int update3002StdBkDtl1(@Param("tableName") String tableName, @Param("record") TblQpbatStdBankDetail record);
+
+    int update3002StdBkDtl2(@Param("tableName") String tableName, @Param("record") TblQpbatStdBankDetail record);
 }

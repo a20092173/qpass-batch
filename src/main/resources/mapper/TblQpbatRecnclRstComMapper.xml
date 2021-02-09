@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.unionpay.batch.dao.TblQpbatRecnclRstComMapper" >
+  <resultMap id="BaseResultMap" type="com.unionpay.batch.entity.TblQpbatRecnclRstCom" >
+    <id column="BUSS_CD" property="bussCd" jdbcType="VARCHAR" />
+    <id column="SND_INS_CD" property="sndInsCd" jdbcType="VARCHAR" />
+    <id column="SETTLE_DT" property="settleDt" jdbcType="VARCHAR" />
+    <id column="TRANS_SEQ" property="transSeq" jdbcType="VARCHAR" />
+    <result column="TRANS_TP" property="transTp" jdbcType="VARCHAR" />
+    <result column="BIZ_FUNC_ID" property="bizFuncId" jdbcType="VARCHAR" />
+    <result column="OUT_ACT_NO" property="outActNo" jdbcType="VARCHAR" />
+    <result column="IN_ACT_NO" property="inActNo" jdbcType="VARCHAR" />
+    <result column="TRANS_AT" property="transAt" jdbcType="VARCHAR" />
+    <result column="SETTLE_NUM" property="settleNum" jdbcType="VARCHAR" />
+    <result column="TRANS_DT" property="transDt" jdbcType="VARCHAR" />
+    <result column="TRANS_TM" property="transTm" jdbcType="VARCHAR" />
+    <result column="ISS_ACQ" property="issAcq" jdbcType="CHAR" />
+    <result column="OPER_ST" property="operSt" jdbcType="VARCHAR" />
+    <result column="RECNCL_ST" property="recnclSt" jdbcType="VARCHAR" />
+    <result column="BTP_NO" property="btpNo" jdbcType="VARCHAR" />
+    <result column="RST_MSG" property="rstMsg" jdbcType="VARCHAR" />
+    <result column="OPEN_IN" property="openIn" jdbcType="CHAR" />
+    <result column="REC_UPD_USR_ID" property="recUpdUsrId" jdbcType="VARCHAR" />
+    <result column="REC_UPD_TS" property="recUpdTs" jdbcType="TIMESTAMP" />
+    <result column="REC_CRT_TS" property="recCrtTs" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    BUSS_CD, SND_INS_CD, SETTLE_DT, TRANS_SEQ, TRANS_TP, BIZ_FUNC_ID, OUT_ACT_NO, IN_ACT_NO, 
+    TRANS_AT, SETTLE_NUM, TRANS_DT, TRANS_TM, ISS_ACQ, OPER_ST, RECNCL_ST, BTP_NO, RST_MSG, 
+    OPEN_IN, REC_UPD_USR_ID, REC_UPD_TS, REC_CRT_TS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ${tableName}
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="example.orderByClause != null" >
+      order by ${example.orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from ${tableName}
+    where BUSS_CD = #{record.bussCd,jdbcType=VARCHAR}
+      and SND_INS_CD = #{record.sndInsCd,jdbcType=VARCHAR}
+      and SETTLE_DT = #{record.settleDt,jdbcType=VARCHAR}
+      and TRANS_SEQ = #{record.transSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map" >
+    delete from ${tableName}
+    where BUSS_CD = #{record.bussCd,jdbcType=VARCHAR}
+      and SND_INS_CD = #{record.sndInsCd,jdbcType=VARCHAR}
+      and SETTLE_DT = #{record.settleDt,jdbcType=VARCHAR}
+      and TRANS_SEQ = #{record.transSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="map" >
+    delete from ${tableName}
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="map" >
+    insert into ${tableName} (BUSS_CD, SND_INS_CD, SETTLE_DT,
+      TRANS_SEQ, TRANS_TP, BIZ_FUNC_ID, 
+      OUT_ACT_NO, IN_ACT_NO, TRANS_AT, 
+      SETTLE_NUM, TRANS_DT, TRANS_TM, 
+      ISS_ACQ, OPER_ST, RECNCL_ST, 
+      BTP_NO, RST_MSG, OPEN_IN, 
+      REC_UPD_USR_ID, REC_UPD_TS, REC_CRT_TS
+      )
+    values (#{record.bussCd,jdbcType=VARCHAR}, #{record.sndInsCd,jdbcType=VARCHAR}, #{record.settleDt,jdbcType=VARCHAR},
+      #{record.transSeq,jdbcType=VARCHAR}, #{record.transTp,jdbcType=VARCHAR}, #{record.bizFuncId,jdbcType=VARCHAR},
+      #{record.outActNo,jdbcType=VARCHAR}, #{record.inActNo,jdbcType=VARCHAR}, #{record.transAt,jdbcType=VARCHAR},
+      #{record.settleNum,jdbcType=VARCHAR}, #{record.transDt,jdbcType=VARCHAR}, #{record.transTm,jdbcType=VARCHAR},
+      #{record.issAcq,jdbcType=CHAR}, #{record.operSt,jdbcType=VARCHAR}, #{record.recnclSt,jdbcType=VARCHAR},
+      #{record.btpNo,jdbcType=VARCHAR}, #{record.rstMsg,jdbcType=VARCHAR}, #{record.openIn,jdbcType=CHAR},
+      #{record.recUpdUsrId,jdbcType=VARCHAR}, current_timestamp, current_timestamp
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="map" >
+    insert into ${tableName}
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="record.bussCd != null" >
+        BUSS_CD,
+      </if>
+      <if test="record.sndInsCd != null" >
+        SND_INS_CD,
+      </if>
+      <if test="record.settleDt != null" >
+        SETTLE_DT,
+      </if>
+      <if test="record.transSeq != null" >
+        TRANS_SEQ,
+      </if>
+      <if test="record.transTp != null" >
+        TRANS_TP,
+      </if>
+      <if test="record.bizFuncId != null" >
+        BIZ_FUNC_ID,
+      </if>
+      <if test="record.outActNo != null" >
+        OUT_ACT_NO,
+      </if>
+      <if test="record.inActNo != null" >
+        IN_ACT_NO,
+      </if>
+      <if test="record.transAt != null" >
+        TRANS_AT,
+      </if>
+      <if test="record.settleNum != null" >
+        SETTLE_NUM,
+      </if>
+      <if test="record.transDt != null" >
+        TRANS_DT,
+      </if>
+      <if test="record.transTm != null" >
+        TRANS_TM,
+      </if>
+      <if test="record.issAcq != null" >
+        ISS_ACQ,
+      </if>
+      <if test="record.operSt != null" >
+        OPER_ST,
+      </if>
+      <if test="record.recnclSt != null" >
+        RECNCL_ST,
+      </if>
+      <if test="record.btpNo != null" >
+        BTP_NO,
+      </if>
+      <if test="record.rstMsg != null" >
+        RST_MSG,
+      </if>
+      <if test="record.openIn != null" >
+        OPEN_IN,
+      </if>
+      <if test="record.recUpdUsrId != null" >
+        REC_UPD_USR_ID
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="record.bussCd != null" >
+        #{record.bussCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sndInsCd != null" >
+        #{record.sndInsCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.settleDt != null" >
+        #{record.settleDt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transSeq != null" >
+        #{record.transSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transTp != null" >
+        #{record.transTp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bizFuncId != null" >
+        #{record.bizFuncId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outActNo != null" >
+        #{record.outActNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inActNo != null" >
+        #{record.inActNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transAt != null" >
+        #{record.transAt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.settleNum != null" >
+        #{record.settleNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transDt != null" >
+        #{record.transDt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transTm != null" >
+        #{record.transTm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.issAcq != null" >
+        #{record.issAcq,jdbcType=CHAR},
+      </if>
+      <if test="record.operSt != null" >
+        #{record.operSt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recnclSt != null" >
+        #{record.recnclSt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.btpNo != null" >
+        #{record.btpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rstMsg != null" >
+        #{record.rstMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="openIn != null" >
+        #{record.openIn,jdbcType=CHAR},
+      </if>
+      <if test="record.recUpdUsrId != null" >
+        #{record.recUpdUsrId,jdbcType=VARCHAR}
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="map" resultType="java.lang.Integer" >
+    select count(*) from ${tableName}
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ${tableName}
+    <set >
+      <if test="record.bussCd != null" >
+        BUSS_CD = #{record.bussCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sndInsCd != null" >
+        SND_INS_CD = #{record.sndInsCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.settleDt != null" >
+        SETTLE_DT = #{record.settleDt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transSeq != null" >
+        TRANS_SEQ = #{record.transSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transTp != null" >
+        TRANS_TP = #{record.transTp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bizFuncId != null" >
+        BIZ_FUNC_ID = #{record.bizFuncId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outActNo != null" >
+        OUT_ACT_NO = #{record.outActNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inActNo != null" >
+        IN_ACT_NO = #{record.inActNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transAt != null" >
+        TRANS_AT = #{record.transAt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.settleNum != null" >
+        SETTLE_NUM = #{record.settleNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transDt != null" >
+        TRANS_DT = #{record.transDt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transTm != null" >
+        TRANS_TM = #{record.transTm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.issAcq != null" >
+        ISS_ACQ = #{record.issAcq,jdbcType=CHAR},
+      </if>
+      <if test="record.operSt != null" >
+        OPER_ST = #{record.operSt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recnclSt != null" >
+        RECNCL_ST = #{record.recnclSt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.btpNo != null" >
+        BTP_NO = #{record.btpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rstMsg != null" >
+        RST_MSG = #{record.rstMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.openIn != null" >
+        OPEN_IN = #{record.openIn,jdbcType=CHAR},
+      </if>
+      <if test="record.recUpdUsrId != null" >
+        REC_UPD_USR_ID = #{record.recUpdUsrId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recUpdTs != null" >
+        REC_UPD_TS = #{record.recUpdTs,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.recCrtTs != null" >
+        REC_CRT_TS = #{record.recCrtTs,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ${tableName}
+    set BUSS_CD = #{record.bussCd,jdbcType=VARCHAR},
+      SND_INS_CD = #{record.sndInsCd,jdbcType=VARCHAR},
+      SETTLE_DT = #{record.settleDt,jdbcType=VARCHAR},
+      TRANS_SEQ = #{record.transSeq,jdbcType=VARCHAR},
+      TRANS_TP = #{record.transTp,jdbcType=VARCHAR},
+      BIZ_FUNC_ID = #{record.bizFuncId,jdbcType=VARCHAR},
+      OUT_ACT_NO = #{record.outActNo,jdbcType=VARCHAR},
+      IN_ACT_NO = #{record.inActNo,jdbcType=VARCHAR},
+      TRANS_AT = #{record.transAt,jdbcType=VARCHAR},
+      SETTLE_NUM = #{record.settleNum,jdbcType=VARCHAR},
+      TRANS_DT = #{record.transDt,jdbcType=VARCHAR},
+      TRANS_TM = #{record.transTm,jdbcType=VARCHAR},
+      ISS_ACQ = #{record.issAcq,jdbcType=CHAR},
+      OPER_ST = #{record.operSt,jdbcType=VARCHAR},
+      RECNCL_ST = #{record.recnclSt,jdbcType=VARCHAR},
+      BTP_NO = #{record.btpNo,jdbcType=VARCHAR},
+      RST_MSG = #{record.rstMsg,jdbcType=VARCHAR},
+      OPEN_IN = #{record.openIn,jdbcType=CHAR},
+      REC_UPD_USR_ID = #{record.recUpdUsrId,jdbcType=VARCHAR},
+      REC_UPD_TS = #{record.recUpdTs,jdbcType=TIMESTAMP},
+      REC_CRT_TS = #{record.recCrtTs,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="map" >
+    update ${tableName}
+    <set >
+      <if test="record.transTp != null" >
+        TRANS_TP = #{record.transTp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bizFuncId != null" >
+        BIZ_FUNC_ID = #{record.bizFuncId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outActNo != null" >
+        OUT_ACT_NO = #{record.outActNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inActNo != null" >
+        IN_ACT_NO = #{record.inActNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transAt != null" >
+        TRANS_AT = #{record.transAt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.settleNum != null" >
+        SETTLE_NUM = #{record.settleNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transDt != null" >
+        TRANS_DT = #{record.transDt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transTm != null" >
+        TRANS_TM = #{record.transTm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.issAcq != null" >
+        ISS_ACQ = #{record.issAcq,jdbcType=CHAR},
+      </if>
+      <if test="record.operSt != null" >
+        OPER_ST = #{record.operSt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recnclSt != null" >
+        RECNCL_ST = #{record.recnclSt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.btpNo != null" >
+        BTP_NO = #{record.btpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rstMsg != null" >
+        RST_MSG = #{record.rstMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.openIn != null" >
+        OPEN_IN = #{record.openIn,jdbcType=CHAR},
+      </if>
+      <if test="record.recUpdUsrId != null" >
+        REC_UPD_USR_ID = #{record.recUpdUsrId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where BUSS_CD = #{record.bussCd,jdbcType=VARCHAR}
+      and SND_INS_CD = #{record.sndInsCd,jdbcType=VARCHAR}
+      and SETTLE_DT = #{record.settleDt,jdbcType=VARCHAR}
+      and TRANS_SEQ = #{record.transSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="map" >
+    update ${tableName}
+    set TRANS_TP = #{record.transTp,jdbcType=VARCHAR},
+      BIZ_FUNC_ID = #{record.bizFuncId,jdbcType=VARCHAR},
+      OUT_ACT_NO = #{record.outActNo,jdbcType=VARCHAR},
+      IN_ACT_NO = #{record.inActNo,jdbcType=VARCHAR},
+      TRANS_AT = #{record.transAt,jdbcType=VARCHAR},
+      SETTLE_NUM = #{record.settleNum,jdbcType=VARCHAR},
+      TRANS_DT = #{record.transDt,jdbcType=VARCHAR},
+      TRANS_TM = #{record.transTm,jdbcType=VARCHAR},
+      ISS_ACQ = #{record.issAcq,jdbcType=CHAR},
+      OPER_ST = #{record.operSt,jdbcType=VARCHAR},
+      RECNCL_ST = #{record.recnclSt,jdbcType=VARCHAR},
+      BTP_NO = #{record.btpNo,jdbcType=VARCHAR},
+      RST_MSG = #{record.rstMsg,jdbcType=VARCHAR},
+      OPEN_IN = #{record.openIn,jdbcType=CHAR},
+      REC_UPD_USR_ID = #{record.recUpdUsrId,jdbcType=VARCHAR},
+      REC_UPD_TS = #{record.recUpdTs,jdbcType=TIMESTAMP},
+      REC_CRT_TS = #{record.recCrtTs,jdbcType=TIMESTAMP}
+    where BUSS_CD = #{record.bussCd,jdbcType=VARCHAR}
+      and SND_INS_CD = #{record.sndInsCd,jdbcType=VARCHAR}
+      and SETTLE_DT = #{record.settleDt,jdbcType=VARCHAR}
+      and TRANS_SEQ = #{record.transSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

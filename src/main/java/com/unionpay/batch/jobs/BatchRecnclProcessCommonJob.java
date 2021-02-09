@@ -31,6 +31,14 @@ public class BatchRecnclProcessCommonJob extends QuartzJobBean {
     @Autowired
     BatchRecnclProcessCommon batchRecnclProcessCommon;
 
+    private void initParm(JobDataMap dataMap){
+        //日期时间
+        String settleDt = dataMap.get("SettleDt").toString();
+        dataMap.put("CurrBankTblNm", "tbl_qpbat_std_bank_detail"+settleDt.substring(3,4));
+        dataMap.put("CurrCupsTblNm", "tbl_qpbat_up_comtrx"+settleDt.substring(3,4));
+        dataMap.put("CurrRetTblNm", "tbl_qpbat_recncl_rst_com"+settleDt.substring(3,4));
+    }
+
     @Override
     protected void executeInternal(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         log.info("start.................");
@@ -57,22 +65,15 @@ public class BatchRecnclProcessCommonJob extends QuartzJobBean {
         dataMap.put("IssAcq","0");
         tblQpbatUpComtrxService.insertOneRecordIntoUpComtrx(dataMap);
         */
-        batchRecnclProcessCommon.exeBatchRecnclCommonFlow(jobExecutionContext.getMergedJobDataMap());
-
+        JobDataMap dataMap = jobExecutionContext.getMergedJobDataMap();
+        //参数初始化
+        initParm(dataMap);
+        //task任务执行
+        batchRecnclProcessCommon.exeBatchRecnclCommonFlow(dataMap);
         log.info("end...................");
-
-
         //SignUser user1;
         //user1 = signUserService.getSignUserByEmpId("A000001");
         //log.info("result = " + user1.toString());
-        /*
-        * 1.交易流程初始化,根据交易码查询交易序列插入序列执行表。
-        */
-
-        /*
-        * 2.根据交易码查询交易序列码表循环执行原子序列，原子序列执行根据获取的类名方法名参数为DataMap
-        */
-
     }
 }
 
