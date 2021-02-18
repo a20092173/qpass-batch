@@ -27,7 +27,7 @@
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
         <if test="criteria.valid" >
           <trim prefix="(" suffix=")" prefixOverrides="and" >
             <foreach collection="criteria.criteria" item="criterion" >
@@ -463,7 +463,7 @@
     update ${tableName}
     set RECNCL_ST=(case when trans_tp='3002' then '10' else '11' end),
     RECNCL_DESC=(case when trans_tp='3002' then '勾对相平-成功的终态通知交易' else '勾对相平-成功的冲正交易' end)
-    where BUSS_CD = #{recordbussCd,jdbcType=VARCHAR}
+    where BUSS_CD = #{record.bussCd,jdbcType=VARCHAR}
     and SETTLE_DT = #{record.settleDt,jdbcType=VARCHAR}
     and SETTLE_NUM = #{record.settleNum,jdbcType=VARCHAR}
     and ((trans_tp='3002' and substring(trans_st,1,1)='0')

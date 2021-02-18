@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static com.unionpay.batch.base.BatchGlobalVariable.*;
 
 @Slf4j
@@ -97,12 +99,15 @@ public class BatchStdRecnclServiceImpl implements BatchStdRecnclService{
         if(!beforeRecnclCheck(dataMap)){
             return BAT_FAIL;
         }
+        /*
         if(!initClearRecnclTbl(dataMap)){
             return BAT_FAIL;
         }
+        */
         if(!initUpComtrxTblSt(dataMap)){
             return BAT_FAIL;
         }
+
         if(!initStdBankDtlTblSt(dataMap)){
             return BAT_FAIL;
         }
@@ -128,7 +133,6 @@ public class BatchStdRecnclServiceImpl implements BatchStdRecnclService{
         String bussCd = dataMap.get("BussCd").toString();
         String settleDt = dataMap.get("SettleDt").toString();
         String settleNum = "";
-        log.info("【beforeRecnclCheck】银联清算入库检查tableName:"+ tableName +",bussCd:" + bussCd + ",settleDt:" + settleDt + ",settleNum:" + settleNum);
         TblQpbatUpComtrxExample qpbatUpComtrxExample = new TblQpbatUpComtrxExample();
         TblQpbatUpComtrxExample.Criteria criteriaUpComtrx = qpbatUpComtrxExample.createCriteria();
         criteriaUpComtrx.andBussCdEqualTo(bussCd);
@@ -137,13 +141,16 @@ public class BatchStdRecnclServiceImpl implements BatchStdRecnclService{
             settleNum = dataMap.get("SettleNum").toString();
             criteriaUpComtrx.andSettleNumEqualTo(settleNum);
         }
+        log.info("【beforeRecnclCheck】银联清算入库检查tableName:"+ tableName +",bussCd:" + bussCd + ",settleDt:" + settleDt + ",settleNum:" + settleNum);
+
         try{
             cupsCnts = TblQpbatUpComtrxDao.countByExample(tableName, qpbatUpComtrxExample);
         }catch (Exception e){
-            log.error("【beforeRecnclCheck】countByExample查询银联明细表发生异常，bussCd:" + bussCd + ",settleDt:" + settleDt + ",settleNum:" + settleNum);
+            log.error("【beforeRecnclCheck】countByExample查询银联明细表发生异常，bussCd:" + bussCd + ",settleDt:" + settleDt + ",settleNum:" + settleNum,e);
             return BAT_FAIL;
         }
         //检查银行明细表是否有记录
+        log.info("【beforeRecnclCheck】countByExample....cupsCnts:"+cupsCnts);
         tableName = dataMap.get("CurrBankTblNm").toString();
         bussCd = dataMap.get("BussCd").toString();
         String transDt = dataMap.get("TransDt").toString();
@@ -156,9 +163,9 @@ public class BatchStdRecnclServiceImpl implements BatchStdRecnclService{
             criteria1StdDtl.andSettleNumEqualTo(dataMap.get("SettleNum").toString());
         }
         try{
-            bankCnts = TblQpbatStdBankDetailDao.deleteByExample(tableName, qpbatStdBankDetailExample);
+            bankCnts = TblQpbatStdBankDetailDao.countByExample(tableName, qpbatStdBankDetailExample);
         }catch (Exception e){
-            log.error("【beforeRecnclCheck】deleteByExample查询银行明细表发生异常，condition:bussCd:" + bussCd + ",transDt:" + transDt + ",settleNum:" + settleNum);
+            log.error("【beforeRecnclCheck】countByExample查询银行明细表发生异常，condition:bussCd:" + bussCd + ",transDt:" + transDt + ",settleNum:" + settleNum);
             return BAT_FAIL;
         }
 
@@ -183,7 +190,7 @@ public class BatchStdRecnclServiceImpl implements BatchStdRecnclService{
         }
         try{
             iResult = TblQpbatRecnclRstComDao.deleteByExample(retTblNm, tblQpbatRecnclRstComExample);
-            if(0 >= iResult){
+            if(0 > iResult){
                 log.error("【writeRecnclResultsIntoTable】清理不平表失败iResult:" + iResult);
                 return BAT_FAIL;
             }
@@ -197,13 +204,16 @@ public class BatchStdRecnclServiceImpl implements BatchStdRecnclService{
         RecCupsAndBankRecords recCupsAndBankRecords = new RecCupsAndBankRecords();
         recCupsAndBankRecords.setBussCd(dataMap.get("BussCd").toString());
         recCupsAndBankRecords.setSettleDt(dataMap.get("SettleDt").toString());
+        String cupsTblNm = dataMap.get("CurrCupsTblNm").toString();
+        String bankTblNm = dataMap.get("CurrBankTblNm").toString();
         try{
             if(dataMap.get("SettleNum") != null){
-                iResult = recCupsAndBankRecordsDao.selUpComtrxEqualIntoRetTbl2(recCupsAndBankRecords);
+                recCupsAndBankRecords.setSettleNum(dataMap.get("SettleNum").toString());
+                iResult = recCupsAndBankRecordsDao.selUpComtrxEqualIntoRetTbl2(cupsTblNm,retTblNm,recCupsAndBankRecords);
             }else{
-                iResult = recCupsAndBankRecordsDao.selUpComtrxEqualIntoRetTbl1(recCupsAndBankRecords);
+                iResult = recCupsAndBankRecordsDao.selUpComtrxEqualIntoRetTbl1(cupsTblNm,retTblNm,recCupsAndBankRecords);
             }
-            if(0 >= iResult){
+            if(0 > iResult){
                 log.error("【writeRecnclResultsIntoTable】登记银联明细表相平记录至结果表失败iResult:" + iResult);
                 return BAT_FAIL;
             }
@@ -211,14 +221,16 @@ public class BatchStdRecnclServiceImpl implements BatchStdRecnclService{
             log.error("【writeRecnclResultsIntoTable】登记银联明细表相平记录至结果表异常",e);
             return BAT_FAIL;
         }
+        log.info("【writeRecnclResultsIntoTable】登记银联明细表相平记录至结果表完毕");
         //登记银联清算明细不平结果至结果表
         try{
             if(dataMap.get("SettleNum") != null){
-                iResult = recCupsAndBankRecordsDao.selUpComtrxNoEqualIntoRetTbl2(recCupsAndBankRecords);
+                recCupsAndBankRecords.setSettleNum(dataMap.get("SettleNum").toString());
+                iResult = recCupsAndBankRecordsDao.selUpComtrxNoEqualIntoRetTbl2(cupsTblNm,retTblNm,recCupsAndBankRecords);
             }else{
-                iResult = recCupsAndBankRecordsDao.selUpComtrxNoEqualIntoRetTbl1(recCupsAndBankRecords);
+                iResult = recCupsAndBankRecordsDao.selUpComtrxNoEqualIntoRetTbl1(cupsTblNm,retTblNm,recCupsAndBankRecords);
             }
-            if(0 >= iResult){
+            if(0 > iResult){
                 log.error("【writeRecnclResultsIntoTable】登记银联明细表不平记录至结果表失败iResult:" + iResult);
                 return BAT_FAIL;
             }
@@ -226,16 +238,17 @@ public class BatchStdRecnclServiceImpl implements BatchStdRecnclService{
             log.error("【writeRecnclResultsIntoTable】登记银联明细表不平记录至结果表异常",e);
             return BAT_FAIL;
         }
-        log.info("【writeRecnclResultsIntoTable】登记银联明细表不平记录至结果表成功");
+        log.info("【writeRecnclResultsIntoTable】登记银联明细表不平记录至结果表完毕");
 
         //登记银行明细表不平至结果表
         try{
             if(dataMap.get("SettleNum") != null){
-                iResult = recCupsAndBankRecordsDao.selStdBkDtlNoEqualIntoRetTbl2(recCupsAndBankRecords);
+                recCupsAndBankRecords.setSettleNum(dataMap.get("SettleNum").toString());
+                iResult = recCupsAndBankRecordsDao.selStdBkDtlNoEqualIntoRetTbl2(bankTblNm,retTblNm,recCupsAndBankRecords);
             }else{
-                iResult = recCupsAndBankRecordsDao.selStdBkDtlNoEqualIntoRetTbl1(recCupsAndBankRecords);
+                iResult = recCupsAndBankRecordsDao.selStdBkDtlNoEqualIntoRetTbl1(bankTblNm,retTblNm,recCupsAndBankRecords);
             }
-            if(0 >= iResult){
+            if(0 > iResult){
                 log.error("【writeRecnclResultsIntoTable】登记银行清算明细表不平记录至结果表失败iResult:" + iResult);
                 return BAT_FAIL;
             }
@@ -243,7 +256,7 @@ public class BatchStdRecnclServiceImpl implements BatchStdRecnclService{
             log.error("【writeRecnclResultsIntoTable】登记银行清算明细表不平记录至结果表异常",e);
             return BAT_FAIL;
         }
-        log.info("【writeRecnclResultsIntoTable】登记银行清算明细表不平记录至结果表成功");
+        log.info("【writeRecnclResultsIntoTable】登记银行清算明细表不平记录至结果表完毕");
 
         return BAT_SUCC;
     }
@@ -254,16 +267,17 @@ public class BatchStdRecnclServiceImpl implements BatchStdRecnclService{
         RecCupsAndBankRecords recCupsAndBankRecords = new RecCupsAndBankRecords();
         recCupsAndBankRecords.setBussCd(dataMap.get("BussCd").toString());
         recCupsAndBankRecords.setSettleDt(dataMap.get("SettleDt").toString());
-        recCupsAndBankRecords.setCupsTblNm(dataMap.get("CurrCupsTblNm").toString());
-        recCupsAndBankRecords.setBankTblNm(dataMap.get("CurrBankTblNm").toString());
+        String cupsTblNm = dataMap.get("CurrCupsTblNm").toString();
+        String bankTblNm = dataMap.get("CurrBankTblNm").toString();
         try{
             if(dataMap.get("SettleNum") != null){
-                iResult = recCupsAndBankRecordsDao.updCupsAndBankTblRecStForRecAmt2(recCupsAndBankRecords);
+                recCupsAndBankRecords.setSettleNum(dataMap.get("SettleNum").toString());
+                iResult = recCupsAndBankRecordsDao.updCupsAndBankTblRecStForRecAmt2(cupsTblNm,bankTblNm,recCupsAndBankRecords);
             }
             else{
-                iResult = recCupsAndBankRecordsDao.updCupsAndBankTblRecStForRecAmt1(recCupsAndBankRecords);
+                iResult = recCupsAndBankRecordsDao.updCupsAndBankTblRecStForRecAmt1(cupsTblNm,bankTblNm,recCupsAndBankRecords);
             }
-            if(0 >= iResult){
+            if(0 > iResult){
                 log.error("【recnclCupsAndBankAmt】银联银行明细金额勾对失败iResult:"+iResult);
                 return BAT_FAIL;
             }
@@ -282,7 +296,6 @@ public class BatchStdRecnclServiceImpl implements BatchStdRecnclService{
         String bussCd = dataMap.get("BussCd").toString();
         String settleDt = dataMap.get("SettleDt").toString();
         String settleNum = "";
-        log.info("【initUpComtrxTblSt】初始化银联明细流水tableName:"+ tableName +",bussCd:" + bussCd + ",settleDt:" + settleDt + ",settleNum:" + dataMap.get("SettleNum"));
         TblQpbatUpComtrx qpbatUpComtrx = new TblQpbatUpComtrx();
         qpbatUpComtrx.setRecnclSt("00");
         TblQpbatUpComtrxExample qpbatUpComtrxExample = new TblQpbatUpComtrxExample();
@@ -293,9 +306,10 @@ public class BatchStdRecnclServiceImpl implements BatchStdRecnclService{
             settleNum = dataMap.get("SettleNum").toString();
             criteriaUpComtrx.andSettleNumEqualTo(settleNum);
         }
+        log.info("【initUpComtrxTblSt】初始化银联明细流水tableName:"+ tableName +",bussCd:" + bussCd + ",settleDt:" + settleDt + ",settleNum:" + dataMap.get("SettleNum"));
         try{
-            iResult = TblQpbatUpComtrxDao.updateByExample(tableName, qpbatUpComtrx, qpbatUpComtrxExample);
-            if(0 >= iResult){
+            iResult = TblQpbatUpComtrxDao.updateByExampleSelective(tableName, qpbatUpComtrx, qpbatUpComtrxExample);
+            if(0 > iResult){
                 log.error("【initUpComtrxTblSt】初始化银联清算流水失败iResult:" + iResult);
                 return BAT_FAIL;
             }
@@ -306,7 +320,6 @@ public class BatchStdRecnclServiceImpl implements BatchStdRecnclService{
         log.info("【initUpComtrxTblSt】流水初始化完成");
 
         //comtrx流水不参与对账的流水状态更新为20,bussCd+settleDt+bizFuncCd
-        log.info("【initUpComtrxTblSt】初始化不参与对账银联清算流水tableName:"+ tableName +",bussCd:" + bussCd + ",settleDt:" + settleDt + ",settleNum:" + settleNum);
         qpbatUpComtrx.setRecnclSt("20");
         criteriaUpComtrx.andBussCdEqualTo(bussCd);
         criteriaUpComtrx.andSettleDtEqualTo(settleDt);
@@ -314,10 +327,13 @@ public class BatchStdRecnclServiceImpl implements BatchStdRecnclService{
             settleNum = dataMap.get("SettleNum").toString();
             criteriaUpComtrx.andSettleNumEqualTo(settleNum);
         }
-        criteriaUpComtrx.andTransTpNotIn(TblQpbatTrxtypInfDao.selectByRecSt("0"));
+        log.info("【initUpComtrxTblSt】初始化不参与对账银联清算流水tableName:"+ tableName +",bussCd:" + bussCd + ",settleDt:" + settleDt + ",settleNum:" + settleNum);
+        List<String> typRecords =  TblQpbatTrxtypInfDao.selectByRecSt("1");
+        log.info(".......TblQpbatTrxtypInfDao.selectByRecSt:"+typRecords);
+        criteriaUpComtrx.andTransTpNotIn(typRecords);
         try{
-            iResult = TblQpbatUpComtrxDao.updateByExample(tableName, qpbatUpComtrx, qpbatUpComtrxExample);
-            if(0 >= iResult){
+            iResult = TblQpbatUpComtrxDao.updateByExampleSelective(tableName, qpbatUpComtrx, qpbatUpComtrxExample);
+            if(0 > iResult){
                 log.error("【initUpComtrxTblSt】初始化不参与对账银联清算流水失败iResult:" + iResult);
                 return BAT_FAIL;
             }
@@ -337,7 +353,6 @@ public class BatchStdRecnclServiceImpl implements BatchStdRecnclService{
         String bussCd = dataMap.get("BussCd").toString();
         String settleDt = dataMap.get("SettleDt").toString();
         String settleNum = "";
-        log.info("【initStdBankDtlTblSt】初始化银行明细流水tableName:"+ tableName +",bussCd:" + bussCd + ",settleDt:" + settleDt + ",settleNum:" + dataMap.get("SettleNum"));
         TblQpbatStdBankDetail qpbatStdBankDetail = new TblQpbatStdBankDetail();
         qpbatStdBankDetail.setRecnclSt("00");
         TblQpbatStdBankDetailExample qpbatStdBankDetailExample = new TblQpbatStdBankDetailExample();
@@ -348,10 +363,12 @@ public class BatchStdRecnclServiceImpl implements BatchStdRecnclService{
             settleNum = dataMap.get("SettleNum").toString();
             criteriaStdBankDtl.andSettleNumEqualTo(settleNum);
         }
+        log.info("【initStdBankDtlTblSt】初始化银行明细流水tableName:"+ tableName +",bussCd:" + bussCd + ",settleDt:" + settleDt + ",settleNum:" + dataMap.get("SettleNum"));
+
         criteriaStdBankDtl.andRecnclStNotEqualTo("99");
         try{
-            iResult = TblQpbatStdBankDetailDao.updateByExample(tableName, qpbatStdBankDetail, qpbatStdBankDetailExample);
-            if(0 >= iResult){
+            iResult = TblQpbatStdBankDetailDao.updateByExampleSelective(tableName, qpbatStdBankDetail, qpbatStdBankDetailExample);
+            if(0 > iResult){
                 log.error("【initStdBankDtlTblSt】初始化银行清算流水失败iResult:" + iResult);
                 return BAT_FAIL;
             }
@@ -368,11 +385,12 @@ public class BatchStdRecnclServiceImpl implements BatchStdRecnclService{
         log.info("【recnclProc】更新银行终态/已冲正成功明细流水tableName:"+ tableName +",bussCd:" + qpbatStdBankDetail.getBussCd() + ",settleDt:" + qpbatStdBankDetail.getSettleDt() + ",settleNum:" + settleNum);
         try{
             if(dataMap.get("SettleNum") != null){
+                qpbatStdBankDetail.setSettleNum(dataMap.get("SettleNum").toString());
                 iResult = TblQpbatStdBankDetailDao.update3002StdBkDtl2(tableName, qpbatStdBankDetail);
             }else{
                 iResult = TblQpbatStdBankDetailDao.update3002StdBkDtl1(tableName, qpbatStdBankDetail);
             }
-            if(0 >= iResult){
+            if(0 > iResult){
                 log.error("【recnclProc】更新银行终态/已冲正成功明细流水失败iResult:" + iResult);
                 return BAT_FAIL;
             }
@@ -391,15 +409,16 @@ public class BatchStdRecnclServiceImpl implements BatchStdRecnclService{
         RecCupsAndBankRecords recCupsAndBankRecords = new RecCupsAndBankRecords();
         recCupsAndBankRecords.setBussCd(dataMap.get("BussCd").toString());
         recCupsAndBankRecords.setSettleDt(dataMap.get("SettleDt").toString());
-        recCupsAndBankRecords.setCupsTblNm(dataMap.get("CurrCupsTblNm").toString());
-        recCupsAndBankRecords.setBankTblNm(dataMap.get("CurrBankTblNm").toString());
+        String cupsTblNm = dataMap.get("CurrCupsTblNm").toString();
+        String bankTblNm = dataMap.get("CurrBankTblNm").toString();
         try{
             if(dataMap.get("SettleNum") != null){
-                iResult = recCupsAndBankRecordsDao.updCupsMoreRecords2(recCupsAndBankRecords);
+                recCupsAndBankRecords.setSettleNum(dataMap.get("SettleNum").toString());
+                iResult = recCupsAndBankRecordsDao.updCupsMoreRecords2(cupsTblNm,bankTblNm,recCupsAndBankRecords);
             }else{
-                iResult = recCupsAndBankRecordsDao.updCupsMoreRecords1(recCupsAndBankRecords);
+                iResult = recCupsAndBankRecordsDao.updCupsMoreRecords1(cupsTblNm,bankTblNm,recCupsAndBankRecords);
             }
-            if(0 >= iResult){
+            if(0 > iResult){
                 log.error("【updSingleMoreRecords】更新银联多银行少明细记录失败iResult:"+iResult);
                 return BAT_FAIL;
             }
@@ -412,11 +431,12 @@ public class BatchStdRecnclServiceImpl implements BatchStdRecnclService{
         //更新银联少银行多记录
         try{
             if(dataMap.get("SettleNum") != null){
-                iResult = recCupsAndBankRecordsDao.updBankMoreRecords2(recCupsAndBankRecords);
+                recCupsAndBankRecords.setSettleNum(dataMap.get("SettleNum").toString());
+                iResult = recCupsAndBankRecordsDao.updBankMoreRecords2(cupsTblNm,bankTblNm,recCupsAndBankRecords);
             }else{
-                iResult = recCupsAndBankRecordsDao.updBankMoreRecords1(recCupsAndBankRecords);
+                iResult = recCupsAndBankRecordsDao.updBankMoreRecords1(cupsTblNm,bankTblNm,recCupsAndBankRecords);
             }
-            if(0 >= iResult){
+            if(0 > iResult){
                 log.error("【updSingleMoreRecords】更新银行多银联少明细记录失败iResult:"+iResult);
                 return BAT_FAIL;
             }

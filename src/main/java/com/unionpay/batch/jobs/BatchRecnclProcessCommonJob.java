@@ -34,9 +34,10 @@ public class BatchRecnclProcessCommonJob extends QuartzJobBean {
     private void initParm(JobDataMap dataMap){
         //日期时间
         String settleDt = dataMap.get("SettleDt").toString();
-        dataMap.put("CurrBankTblNm", "tbl_qpbat_std_bank_detail"+settleDt.substring(3,4));
-        dataMap.put("CurrCupsTblNm", "tbl_qpbat_up_comtrx"+settleDt.substring(3,4));
-        dataMap.put("CurrRetTblNm", "tbl_qpbat_recncl_rst_com"+settleDt.substring(3,4));
+        dataMap.put("TransDt",settleDt);
+        dataMap.put("CurrBankTblNm", "tbl_qpbat_std_bank_detail"+settleDt.substring(4,6));
+        dataMap.put("CurrCupsTblNm", "tbl_qpbat_up_comtrx"+settleDt.substring(4,6));
+        dataMap.put("CurrRetTblNm", "tbl_qpbat_recncl_rst_com"+settleDt.substring(4,6));
     }
 
     @Override

@@ -89,7 +89,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByRecSt" resultMap="java.lang.String" parameterType="java.lang.String" >
+  <select id="selectByRecSt" resultType="java.lang.String" parameterType="java.lang.String" >
     select
     TRXTYP_CD
     from tbl_qpbat_trxtyp_inf

@@ -2,16 +2,17 @@ package com.unionpay.batch.dao;
 
 import com.unionpay.batch.entity.TblQpbatBatTaskSt;
 import com.unionpay.batch.entity.TblQpbatBatTaskStExample;
-import com.unionpay.batch.entity.TblQpbatBatTaskStKey;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface TblQpbatBatTaskStMapper {
     int countByExample(TblQpbatBatTaskStExample example);
 
     int deleteByExample(TblQpbatBatTaskStExample example);
 
-    int deleteByPrimaryKey(TblQpbatBatTaskStKey key);
+    int deleteByPrimaryKey(TblQpbatBatTaskSt record);
 
     int insert(TblQpbatBatTaskSt record);
 
@@ -19,7 +20,7 @@ public interface TblQpbatBatTaskStMapper {
 
     List<TblQpbatBatTaskSt> selectByExample(TblQpbatBatTaskStExample example);
 
-    TblQpbatBatTaskSt selectByPrimaryKey(TblQpbatBatTaskStKey key);
+    TblQpbatBatTaskSt selectByPrimaryKey(TblQpbatBatTaskSt record);
 
     int updateByExampleSelective(@Param("record") TblQpbatBatTaskSt record, @Param("example") TblQpbatBatTaskStExample example);
 

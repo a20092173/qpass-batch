@@ -95,7 +95,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.unionpay.batch.entity.TblQpbatBatTaskStKey" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.unionpay.batch.entity.TblQpbatBatTaskSt" >
     select 
     <include refid="Base_Column_List" />
     from tbl_qpbat_bat_task_st
@@ -103,7 +103,7 @@
       and SETTLE_DT = #{settleDt,jdbcType=VARCHAR}
       and TASK_ID = #{taskId,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="com.unionpay.batch.entity.TblQpbatBatTaskStKey" >
+  <delete id="deleteByPrimaryKey" parameterType="com.unionpay.batch.entity.TblQpbatBatTaskSt" >
     delete from tbl_qpbat_bat_task_st
     where BUSS_CD = #{bussCd,jdbcType=VARCHAR}
       and SETTLE_DT = #{settleDt,jdbcType=VARCHAR}

@@ -4,7 +4,9 @@ import com.unionpay.batch.entity.TblQpbatRecnclRstCom;
 import com.unionpay.batch.entity.TblQpbatRecnclRstComExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface TblQpbatRecnclRstComMapper {
     int countByExample(@Param("tableName") String tableName, @Param("example") TblQpbatRecnclRstComExample example);
 

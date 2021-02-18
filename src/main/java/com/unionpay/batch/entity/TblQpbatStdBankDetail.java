@@ -31,6 +31,8 @@ public class TblQpbatStdBankDetail{
 
     private String settleNum;
 
+    private String transSt;
+
     private String lineBuf;
 
     private String rsvFld;
@@ -159,6 +161,14 @@ public class TblQpbatStdBankDetail{
         this.settleNum = settleNum == null ? null : settleNum.trim();
     }
 
+    public String getTransSt() {
+        return transSt;
+    }
+
+    public void setTransSt(String transSt) {
+        this.transSt = transSt;
+    }
+
     public String getLineBuf() {
         return lineBuf;
     }
@@ -240,6 +250,7 @@ public class TblQpbatStdBankDetail{
                 ", transTp='" + transTp + '\'' +
                 ", bizFuncId='" + bizFuncId + '\'' +
                 ", settleNum='" + settleNum + '\'' +
+                ", transSt='" + transSt + '\'' +
                 ", lineBuf='" + lineBuf + '\'' +
                 ", rsvFld='" + rsvFld + '\'' +
                 ", recnclSt='" + recnclSt + '\'' +
@@ -250,5 +261,6 @@ public class TblQpbatStdBankDetail{
                 ", recCrtTs=" + recCrtTs +
                 '}';
     }
+
 
 }

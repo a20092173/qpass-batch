@@ -40,7 +40,7 @@
         <table schema="" tableName="tbl_qpbat_file_fmt_inf"></table>
         <table schema="" tableName="tbl_qpbat_file_fld_attr"></table>
         <table schema="" tableName="tbl_qpbat_recncl_rst_com01"></table>
+        <table schema="" tableName="tbl_qpbat_trxtyp_inf"></table>
         -->
-        <table schema="" tableName="tbl_qpbat_recncl_rst_com"></table>
     </context>
 </generatorConfiguration>

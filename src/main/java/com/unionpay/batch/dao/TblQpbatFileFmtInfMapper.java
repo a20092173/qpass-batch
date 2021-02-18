@@ -4,7 +4,9 @@ import com.unionpay.batch.entity.TblQpbatFileFmtInf;
 import com.unionpay.batch.entity.TblQpbatFileFmtInfExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface TblQpbatFileFmtInfMapper {
     int countByExample(TblQpbatFileFmtInfExample example);
 
