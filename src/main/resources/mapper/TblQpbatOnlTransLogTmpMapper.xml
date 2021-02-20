@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.unionpay.batch.dao.TblQpbatOnlTransLogTmpMapper" >
+  <resultMap id="BaseResultMap" type="com.unionpay.batch.entity.TblQpbatOnlTransLogTmp" >
+    <id column="FWD_INS_ID_CD" property="fwdInsIdCd" jdbcType="VARCHAR" />
+    <id column="TRANS_SEQ" property="transSeq" jdbcType="VARCHAR" />
+    <result column="QP_TRANS_SEQ" property="qpTransSeq" jdbcType="BIGINT" />
+    <result column="QP_TRANS_DT_TM" property="qpTransDtTm" jdbcType="VARCHAR" />
+    <result column="TRANS_DET_CD" property="transDetCd" jdbcType="VARCHAR" />
+    <result column="TRANS_TP" property="transTp" jdbcType="VARCHAR" />
+    <result column="BIZ_FUNC_ID" property="bizFuncId" jdbcType="VARCHAR" />
+    <result column="SETTLE_DT_TM" property="settleDtTm" jdbcType="VARCHAR" />
+    <result column="TRANS_AT" property="transAt" jdbcType="VARCHAR" />
+    <result column="RCV_ACCT_NO" property="rcvAcctNo" jdbcType="VARCHAR" />
+    <result column="SND_ACCT_NO" property="sndAcctNo" jdbcType="VARCHAR" />
+    <result column="SGN_NO" property="sgnNo" jdbcType="VARCHAR" />
+    <result column="TRANS_ST" property="transSt" jdbcType="VARCHAR" />
+    <result column="BANK_MAIN_TRANS_SEQ" property="bankMainTransSeq" jdbcType="VARCHAR" />
+    <result column="RSV_FLD" property="rsvFld" jdbcType="VARCHAR" />
+    <result column="OPEN_IN" property="openIn" jdbcType="CHAR" />
+    <result column="REC_UPD_USR_ID" property="recUpdUsrId" jdbcType="VARCHAR" />
+    <result column="REC_UPD_TS" property="recUpdTs" jdbcType="TIMESTAMP" />
+    <result column="REC_CRT_TS" property="recCrtTs" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    FWD_INS_ID_CD, TRANS_SEQ, QP_TRANS_SEQ, QP_TRANS_DT_TM, TRANS_DET_CD, TRANS_TP, BIZ_FUNC_ID, 
+    SETTLE_DT_TM, TRANS_AT, RCV_ACCT_NO, SND_ACCT_NO, SGN_NO, TRANS_ST, BANK_MAIN_TRANS_SEQ, 
+    RSV_FLD, OPEN_IN, REC_UPD_USR_ID, REC_UPD_TS, REC_CRT_TS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.batch.entity.TblQpbatOnlTransLogTmpExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_qpbat_onl_trans_log_tmp
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.unionpay.batch.entity.TblQpbatOnlTransLogTmpKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_qpbat_onl_trans_log_tmp
+    where FWD_INS_ID_CD = #{fwdInsIdCd,jdbcType=VARCHAR}
+      and TRANS_SEQ = #{transSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.unionpay.batch.entity.TblQpbatOnlTransLogTmpKey" >
+    delete from tbl_qpbat_onl_trans_log_tmp
+    where FWD_INS_ID_CD = #{fwdInsIdCd,jdbcType=VARCHAR}
+      and TRANS_SEQ = #{transSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.unionpay.batch.entity.TblQpbatOnlTransLogTmpExample" >
+    delete from tbl_qpbat_onl_trans_log_tmp
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.unionpay.batch.entity.TblQpbatOnlTransLogTmp" >
+    insert into tbl_qpbat_onl_trans_log_tmp (FWD_INS_ID_CD, TRANS_SEQ, QP_TRANS_SEQ, 
+      QP_TRANS_DT_TM, TRANS_DET_CD, TRANS_TP, 
+      BIZ_FUNC_ID, SETTLE_DT_TM, TRANS_AT, 
+      RCV_ACCT_NO, SND_ACCT_NO, SGN_NO, 
+      TRANS_ST, BANK_MAIN_TRANS_SEQ, RSV_FLD, 
+      OPEN_IN, REC_UPD_USR_ID, REC_UPD_TS, 
+      REC_CRT_TS)
+    values (#{fwdInsIdCd,jdbcType=VARCHAR}, #{transSeq,jdbcType=VARCHAR}, #{qpTransSeq,jdbcType=BIGINT}, 
+      #{qpTransDtTm,jdbcType=VARCHAR}, #{transDetCd,jdbcType=VARCHAR}, #{transTp,jdbcType=VARCHAR}, 
+      #{bizFuncId,jdbcType=VARCHAR}, #{settleDtTm,jdbcType=VARCHAR}, #{transAt,jdbcType=VARCHAR}, 
+      #{rcvAcctNo,jdbcType=VARCHAR}, #{sndAcctNo,jdbcType=VARCHAR}, #{sgnNo,jdbcType=VARCHAR}, 
+      #{transSt,jdbcType=VARCHAR}, #{bankMainTransSeq,jdbcType=VARCHAR}, #{rsvFld,jdbcType=VARCHAR}, 
+      #{openIn,jdbcType=CHAR}, #{recUpdUsrId,jdbcType=VARCHAR}, #{recUpdTs,jdbcType=TIMESTAMP}, 
+      #{recCrtTs,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSpec1" parameterType="map" >
+    insert into ${batDb}.tbl_qpbat_onl_trans_log_tmp select FWD_INS_ID_CD, TRANS_SEQ, QP_TRANS_SEQ,
+    QP_TRANS_DT_TM, TRANS_DET_CD, TRANS_TP,
+    BIZ_FUNC_ID, SETTLE_DT_TM, TRANS_AT,
+    RCV_ACCT_NO, SND_ACCT_NO, SGN_NO,
+    TRANS_ST, BANK_MAIN_TRANS_SEQ, RSV_FLD,
+    OPEN_IN, REC_UPD_USR_ID, REC_UPD_TS,
+    REC_CRT_TS from ${onlDb}.${onlTransLogTblNm}
+    where settle_dt_tm=#{record.settleDtTm,jdbcType=VARCHAR}
+  </insert>
+  <select id="countByExample" parameterType="com.unionpay.batch.entity.TblQpbatOnlTransLogTmpExample" resultType="java.lang.Integer" >
+    select count(*) from tbl_qpbat_onl_trans_log_tmp
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+</mapper>

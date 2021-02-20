@@ -38,6 +38,9 @@ public class BatchRecnclProcessCommonJob extends QuartzJobBean {
         dataMap.put("CurrBankTblNm", "tbl_qpbat_std_bank_detail"+settleDt.substring(4,6));
         dataMap.put("CurrCupsTblNm", "tbl_qpbat_up_comtrx"+settleDt.substring(4,6));
         dataMap.put("CurrRetTblNm", "tbl_qpbat_recncl_rst_com"+settleDt.substring(4,6));
+        dataMap.put("OnlTransLogTblNm", "tbl_qponl_trans_log"); //转存时需确定是否要从T+1、T、T-1表转存数据
+        dataMap.put("BatDbNm","qpbatdb");
+        dataMap.put("OnlDbNm","qponldb");
     }
 
     @Override
