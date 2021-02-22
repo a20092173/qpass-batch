@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.unionpay.batch.dao.TblQpbatFileFtpCfgMapper" >
+  <resultMap id="BaseResultMap" type="com.unionpay.batch.entity.TblQpbatFileFtpCfg" >
+    <id column="BUSS_CD" property="bussCd" jdbcType="VARCHAR" />
+    <id column="FILE_IDX" property="fileIdx" jdbcType="VARCHAR" />
+    <result column="SER_IP" property="serIp" jdbcType="VARCHAR" />
+    <result column="SER_PORT" property="serPort" jdbcType="VARCHAR" />
+    <result column="SER_PTL" property="serPtl" jdbcType="CHAR" />
+    <result column="LOGIN_USER" property="loginUser" jdbcType="VARCHAR" />
+    <result column="LOGIN_PWD" property="loginPwd" jdbcType="VARCHAR" />
+    <result column="GP_FLG" property="gpFlg" jdbcType="CHAR" />
+    <result column="RMT_DIR" property="rmtDir" jdbcType="VARCHAR" />
+    <result column="LOC_DIR" property="locDir" jdbcType="VARCHAR" />
+    <result column="FILE_NM" property="fileNm" jdbcType="VARCHAR" />
+    <result column="OPER_IN" property="operIn" jdbcType="CHAR" />
+    <result column="EVENT_ID" property="eventId" jdbcType="INTEGER" />
+    <result column="REC_ID" property="recId" jdbcType="INTEGER" />
+    <result column="REC_UPD_USR_ID" property="recUpdUsrId" jdbcType="CHAR" />
+    <result column="REC_UPD_TS" property="recUpdTs" jdbcType="TIMESTAMP" />
+    <result column="REC_CRT_TS" property="recCrtTs" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    BUSS_CD, FILE_IDX, SER_IP, SER_PORT, SER_PTL, LOGIN_USER, LOGIN_PWD, GP_FLG, RMT_DIR, 
+    LOC_DIR, FILE_NM, OPER_IN, EVENT_ID, REC_ID, REC_UPD_USR_ID, REC_UPD_TS, REC_CRT_TS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.batch.entity.TblQpbatFileFtpCfgExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_qpbat_file_ftp_cfg
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.unionpay.batch.entity.TblQpbatFileFtpCfg" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_qpbat_file_ftp_cfg
+    where BUSS_CD = #{bussCd,jdbcType=VARCHAR}
+      and FILE_IDX = #{fileIdx,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.unionpay.batch.entity.TblQpbatFileFtpCfg" >
+    delete from tbl_qpbat_file_ftp_cfg
+    where BUSS_CD = #{bussCd,jdbcType=VARCHAR}
+      and FILE_IDX = #{fileIdx,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.unionpay.batch.entity.TblQpbatFileFtpCfgExample" >
+    delete from tbl_qpbat_file_ftp_cfg
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.unionpay.batch.entity.TblQpbatFileFtpCfg" >
+    insert into tbl_qpbat_file_ftp_cfg (BUSS_CD, FILE_IDX, SER_IP, 
+      SER_PORT, SER_PTL, LOGIN_USER, 
+      LOGIN_PWD, GP_FLG, RMT_DIR, 
+      LOC_DIR, FILE_NM, OPER_IN, 
+      EVENT_ID, REC_ID, REC_UPD_USR_ID, 
+      REC_UPD_TS, REC_CRT_TS)
+    values (#{bussCd,jdbcType=VARCHAR}, #{fileIdx,jdbcType=VARCHAR}, #{serIp,jdbcType=VARCHAR}, 
+      #{serPort,jdbcType=VARCHAR}, #{serPtl,jdbcType=CHAR}, #{loginUser,jdbcType=VARCHAR}, 
+      #{loginPwd,jdbcType=VARCHAR}, #{gpFlg,jdbcType=CHAR}, #{rmtDir,jdbcType=VARCHAR}, 
+      #{locDir,jdbcType=VARCHAR}, #{fileNm,jdbcType=VARCHAR}, #{operIn,jdbcType=CHAR}, 
+      #{eventId,jdbcType=INTEGER}, #{recId,jdbcType=INTEGER}, #{recUpdUsrId,jdbcType=CHAR}, 
+      #{recUpdTs,jdbcType=TIMESTAMP}, #{recCrtTs,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.unionpay.batch.entity.TblQpbatFileFtpCfg" >
+    insert into tbl_qpbat_file_ftp_cfg
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bussCd != null" >
+        BUSS_CD,
+      </if>
+      <if test="fileIdx != null" >
+        FILE_IDX,
+      </if>
+      <if test="serIp != null" >
+        SER_IP,
+      </if>
+      <if test="serPort != null" >
+        SER_PORT,
+      </if>
+      <if test="serPtl != null" >
+        SER_PTL,
+      </if>
+      <if test="loginUser != null" >
+        LOGIN_USER,
+      </if>
+      <if test="loginPwd != null" >
+        LOGIN_PWD,
+      </if>
+      <if test="gpFlg != null" >
+        GP_FLG,
+      </if>
+      <if test="rmtDir != null" >
+        RMT_DIR,
+      </if>
+      <if test="locDir != null" >
+        LOC_DIR,
+      </if>
+      <if test="fileNm != null" >
+        FILE_NM,
+      </if>
+      <if test="operIn != null" >
+        OPER_IN,
+      </if>
+      <if test="eventId != null" >
+        EVENT_ID,
+      </if>
+      <if test="recId != null" >
+        REC_ID,
+      </if>
+      <if test="recUpdUsrId != null" >
+        REC_UPD_USR_ID,
+      </if>
+      <if test="recUpdTs != null" >
+        REC_UPD_TS,
+      </if>
+      <if test="recCrtTs != null" >
+        REC_CRT_TS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bussCd != null" >
+        #{bussCd,jdbcType=VARCHAR},
+      </if>
+      <if test="fileIdx != null" >
+        #{fileIdx,jdbcType=VARCHAR},
+      </if>
+      <if test="serIp != null" >
+        #{serIp,jdbcType=VARCHAR},
+      </if>
+      <if test="serPort != null" >
+        #{serPort,jdbcType=VARCHAR},
+      </if>
+      <if test="serPtl != null" >
+        #{serPtl,jdbcType=CHAR},
+      </if>
+      <if test="loginUser != null" >
+        #{loginUser,jdbcType=VARCHAR},
+      </if>
+      <if test="loginPwd != null" >
+        #{loginPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="gpFlg != null" >
+        #{gpFlg,jdbcType=CHAR},
+      </if>
+      <if test="rmtDir != null" >
+        #{rmtDir,jdbcType=VARCHAR},
+      </if>
+      <if test="locDir != null" >
+        #{locDir,jdbcType=VARCHAR},
+      </if>
+      <if test="fileNm != null" >
+        #{fileNm,jdbcType=VARCHAR},
+      </if>
+      <if test="operIn != null" >
+        #{operIn,jdbcType=CHAR},
+      </if>
+      <if test="eventId != null" >
+        #{eventId,jdbcType=INTEGER},
+      </if>
+      <if test="recId != null" >
+        #{recId,jdbcType=INTEGER},
+      </if>
+      <if test="recUpdUsrId != null" >
+        #{recUpdUsrId,jdbcType=CHAR},
+      </if>
+      <if test="recUpdTs != null" >
+        #{recUpdTs,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recCrtTs != null" >
+        #{recCrtTs,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.unionpay.batch.entity.TblQpbatFileFtpCfgExample" resultType="java.lang.Integer" >
+    select count(*) from tbl_qpbat_file_ftp_cfg
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbl_qpbat_file_ftp_cfg
+    <set >
+      <if test="record.bussCd != null" >
+        BUSS_CD = #{record.bussCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileIdx != null" >
+        FILE_IDX = #{record.fileIdx,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serIp != null" >
+        SER_IP = #{record.serIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serPort != null" >
+        SER_PORT = #{record.serPort,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serPtl != null" >
+        SER_PTL = #{record.serPtl,jdbcType=CHAR},
+      </if>
+      <if test="record.loginUser != null" >
+        LOGIN_USER = #{record.loginUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loginPwd != null" >
+        LOGIN_PWD = #{record.loginPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gpFlg != null" >
+        GP_FLG = #{record.gpFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.rmtDir != null" >
+        RMT_DIR = #{record.rmtDir,jdbcType=VARCHAR},
+      </if>
+      <if test="record.locDir != null" >
+        LOC_DIR = #{record.locDir,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileNm != null" >
+        FILE_NM = #{record.fileNm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operIn != null" >
+        OPER_IN = #{record.operIn,jdbcType=CHAR},
+      </if>
+      <if test="record.eventId != null" >
+        EVENT_ID = #{record.eventId,jdbcType=INTEGER},
+      </if>
+      <if test="record.recId != null" >
+        REC_ID = #{record.recId,jdbcType=INTEGER},
+      </if>
+      <if test="record.recUpdUsrId != null" >
+        REC_UPD_USR_ID = #{record.recUpdUsrId,jdbcType=CHAR},
+      </if>
+      <if test="record.recUpdTs != null" >
+        REC_UPD_TS = #{record.recUpdTs,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.recCrtTs != null" >
+        REC_CRT_TS = #{record.recCrtTs,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tbl_qpbat_file_ftp_cfg
+    set BUSS_CD = #{record.bussCd,jdbcType=VARCHAR},
+      FILE_IDX = #{record.fileIdx,jdbcType=VARCHAR},
+      SER_IP = #{record.serIp,jdbcType=VARCHAR},
+      SER_PORT = #{record.serPort,jdbcType=VARCHAR},
+      SER_PTL = #{record.serPtl,jdbcType=CHAR},
+      LOGIN_USER = #{record.loginUser,jdbcType=VARCHAR},
+      LOGIN_PWD = #{record.loginPwd,jdbcType=VARCHAR},
+      GP_FLG = #{record.gpFlg,jdbcType=CHAR},
+      RMT_DIR = #{record.rmtDir,jdbcType=VARCHAR},
+      LOC_DIR = #{record.locDir,jdbcType=VARCHAR},
+      FILE_NM = #{record.fileNm,jdbcType=VARCHAR},
+      OPER_IN = #{record.operIn,jdbcType=CHAR},
+      EVENT_ID = #{record.eventId,jdbcType=INTEGER},
+      REC_ID = #{record.recId,jdbcType=INTEGER},
+      REC_UPD_USR_ID = #{record.recUpdUsrId,jdbcType=CHAR},
+      REC_UPD_TS = #{record.recUpdTs,jdbcType=TIMESTAMP},
+      REC_CRT_TS = #{record.recCrtTs,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.batch.entity.TblQpbatFileFtpCfg" >
+    update tbl_qpbat_file_ftp_cfg
+    <set >
+      <if test="serIp != null" >
+        SER_IP = #{serIp,jdbcType=VARCHAR},
+      </if>
+      <if test="serPort != null" >
+        SER_PORT = #{serPort,jdbcType=VARCHAR},
+      </if>
+      <if test="serPtl != null" >
+        SER_PTL = #{serPtl,jdbcType=CHAR},
+      </if>
+      <if test="loginUser != null" >
+        LOGIN_USER = #{loginUser,jdbcType=VARCHAR},
+      </if>
+      <if test="loginPwd != null" >
+        LOGIN_PWD = #{loginPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="gpFlg != null" >
+        GP_FLG = #{gpFlg,jdbcType=CHAR},
+      </if>
+      <if test="rmtDir != null" >
+        RMT_DIR = #{rmtDir,jdbcType=VARCHAR},
+      </if>
+      <if test="locDir != null" >
+        LOC_DIR = #{locDir,jdbcType=VARCHAR},
+      </if>
+      <if test="fileNm != null" >
+        FILE_NM = #{fileNm,jdbcType=VARCHAR},
+      </if>
+      <if test="operIn != null" >
+        OPER_IN = #{operIn,jdbcType=CHAR},
+      </if>
+      <if test="eventId != null" >
+        EVENT_ID = #{eventId,jdbcType=INTEGER},
+      </if>
+      <if test="recId != null" >
+        REC_ID = #{recId,jdbcType=INTEGER},
+      </if>
+      <if test="recUpdUsrId != null" >
+        REC_UPD_USR_ID = #{recUpdUsrId,jdbcType=CHAR},
+      </if>
+      <if test="recUpdTs != null" >
+        REC_UPD_TS = #{recUpdTs,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recCrtTs != null" >
+        REC_CRT_TS = #{recCrtTs,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where BUSS_CD = #{bussCd,jdbcType=VARCHAR}
+      and FILE_IDX = #{fileIdx,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.batch.entity.TblQpbatFileFtpCfg" >
+    update tbl_qpbat_file_ftp_cfg
+    set SER_IP = #{serIp,jdbcType=VARCHAR},
+      SER_PORT = #{serPort,jdbcType=VARCHAR},
+      SER_PTL = #{serPtl,jdbcType=CHAR},
+      LOGIN_USER = #{loginUser,jdbcType=VARCHAR},
+      LOGIN_PWD = #{loginPwd,jdbcType=VARCHAR},
+      GP_FLG = #{gpFlg,jdbcType=CHAR},
+      RMT_DIR = #{rmtDir,jdbcType=VARCHAR},
+      LOC_DIR = #{locDir,jdbcType=VARCHAR},
+      FILE_NM = #{fileNm,jdbcType=VARCHAR},
+      OPER_IN = #{operIn,jdbcType=CHAR},
+      EVENT_ID = #{eventId,jdbcType=INTEGER},
+      REC_ID = #{recId,jdbcType=INTEGER},
+      REC_UPD_USR_ID = #{recUpdUsrId,jdbcType=CHAR},
+      REC_UPD_TS = #{recUpdTs,jdbcType=TIMESTAMP},
+      REC_CRT_TS = #{recCrtTs,jdbcType=TIMESTAMP}
+    where BUSS_CD = #{bussCd,jdbcType=VARCHAR}
+      and FILE_IDX = #{fileIdx,jdbcType=VARCHAR}
+  </update>
+</mapper>
